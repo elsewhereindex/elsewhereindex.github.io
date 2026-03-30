@@ -47,7 +47,7 @@ Dear does not knowingly collect any information from children under the age of 1
 If we ever change how Dear handles data (for example, adding optional cloud sync in a future version), we will update this policy and note the changes here. Any future feature that involves data transmission will be opt-in and clearly disclosed.
 
 ## Contact
-If you have questions about this privacy policy, reach us at thefriendoapp@gmail.com.
+If you have questions about this privacy policy, reach us at dearstayintouch@gmail.com.
 
 ---
 *Dear is made by Earl Hoover. It is distributed on the Apple App Store as a free app with optional in-app purchases, no ads, and no data collection.*
