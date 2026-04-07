@@ -1,53 +1,24 @@
 ---
 layout: page
 title: Dear - Privacy Policy
-subtitle: Last updated February 2026
+subtitle: This page has moved
 nav:
   - title: Home
     url: /
 ---
-## The short version
-Dear does not collect, store, or transmit any of your personal data. Everything stays on your device. We have no servers, no accounts, no analytics, no tracking. We don't know who you are, who your friends are, or how you use the app.
 
-That's it. That's the privacy policy.
+## This page has moved
 
-If you want the longer version for legal purposes, keep reading.
----
-## What data Dear accesses
-**Contact names and photos.** During onboarding, Dear asks for permission to access your Contacts. This is used solely to let you select friends to add to your nudge list. Contact data is read once during selection and stored locally on your device using Apple's SwiftData framework. Dear never transmits contact data off your device, and you can use the app without granting Contacts access by typing names manually.
+Dear's privacy policy is now at:
 
-**Notification permissions.** Dear requests permission to send local notifications so it can remind you to reach out to friends. These notifications are scheduled entirely on-device. No server is involved.
+**[dearnudges.com/privacy.html](https://dearnudges.com/privacy.html)**
 
-## What data Dear stores
-All data is stored locally on your iPhone using Apple's SwiftData framework and UserDefaults (via App Group for widget functionality). This includes:
-- The names and optional photos of friends you've added
-- Your nudge preferences (frequency, notification time)
-- Your persona and theme selections
-- Nudge completion history
-- Purchase status for in-app purchases (managed by Apple's StoreKit)
-
-This data never leaves your device. There is no cloud sync, no backup to our servers, and no way for us to access it.
-
-## In-app purchases
-Dear is free to download with optional in-app purchases for additional voice packs, unlimited friends, and Dear+ (a bundle of all features). All purchases are processed by Apple through StoreKit. We do not collect or store any payment information. Apple handles all transaction data according to their own privacy policy.
-
-## What data Dear collects or transmits
-None. Zero. Dear has no server, no backend, no API, no database, and no analytics. We do not use any third-party SDKs, tracking pixels, advertising frameworks, or analytics tools. We do not collect crash reports. We do not know how many people use the app beyond what Apple provides in aggregate App Store analytics (which contains no personally identifiable information and is controlled by your device settings).
-
-## Third-party services
-Dear uses no third-party services. The app operates entirely offline using Apple-native frameworks. Purchases are handled by Apple's StoreKit.
-
-## Data sharing
-We do not share data with anyone because we do not have any data to share.
-
-## Children's privacy
-Dear does not knowingly collect any information from children under the age of 13. Since the app collects no information from anyone, this is inherently satisfied.
-
-## Changes to this policy
-If we ever change how Dear handles data (for example, adding optional cloud sync in a future version), we will update this policy and note the changes here. Any future feature that involves data transmission will be opt-in and clearly disclosed.
+Please update your bookmarks.
 
 ## Contact
-If you have questions about this privacy policy, reach us at dearstayintouch@gmail.com.
+
+support@dearnudges.com
 
 ---
-*Dear is made by Earl Hoover. It is distributed on the Apple App Store as a free app with optional in-app purchases, no ads, and no data collection.*
+
+*Dear: Stay in Touch is made by Elsewhere Index LLC.*
