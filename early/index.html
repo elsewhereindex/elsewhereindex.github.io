@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Early · is it ready for the next guest?</title>
+<meta name="description" content="Early answers one question at a glance: is each short-term rental ready for the next guest? Turnover status for hosts. In pilot, from Elsewhere Index.">
+<meta property="og:title" content="Early · is it ready for the next guest?">
+<meta property="og:description" content="Your cleaner taps one button. The moment a place is turned over, you see the green dot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #2EA3F2;
+    --blue-dk: #1C7EC0;
+    --green: #2EB86C;
+    --red: #DB4444;
+    --amber: #E0912E;
+    --ink: #14202C;
+    --muted: #6B7280;
+    --warm: #FBFAF7;
+    --cool: #F4F7FA;
+    --card: #FFFFFF;
+    --line: #ECE9E3;
+    --line-cool: #E4E9EF;
+    --serif: "Newsreader", Georgia, serif;
+    --ui: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { background: var(--warm); color: var(--ink); font-family: var(--ui); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--blue); color: #fff; }
+
+  .wrap { position: relative; z-index: 2; max-width: 72rem; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem clamp(1.25rem, 5vw, 4rem);
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .top a.back { display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.25s ease; }
+  .top a.back:hover { gap: 0.85rem; color: var(--blue); }
+  .wm { font-family: var(--serif); font-style: italic; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--blue); font-size: 1.05rem; }
+  .wm .pd { color: var(--green); }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+    padding: clamp(2rem, 5vh, 4rem) 0 clamp(3rem, 7vh, 5.5rem); }
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; } }
+  .eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.5rem; }
+  .ask { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 6.6vw, 5rem); line-height: 1.04; letter-spacing: -0.01em; }
+  .ask .g { position: relative; white-space: nowrap; }
+  .ask .g::after { content: ""; display: inline-block; width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--green); margin-left: 0.22em; vertical-align: 0.06em; box-shadow: 0 0 0 0 rgba(46,184,108,0.5); animation: pulse 2.6s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(46,184,108,0.45); } 70% { box-shadow: 0 0 0 0.8rem rgba(46,184,108,0); } 100% { box-shadow: 0 0 0 0 rgba(46,184,108,0); } }
+  .lede { margin-top: 1.8rem; max-width: 42ch; font-size: clamp(1.08rem, 1.6vw, 1.22rem); color: #3A4650; }
+
+  /* Interactive unit card */
+  .unit { justify-self: center; width: min(24rem, 100%); }
+  .ucard { background: var(--card); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 34px 60px -38px rgba(20,32,44,0.5); overflow: hidden; }
+  .ucard__top { padding: 1.4rem 1.4rem 1.1rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .ucard__name { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; line-height: 1.1; }
+  .ucard__sub { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+  .pill { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; white-space: nowrap; padding: 0.4rem 0.65rem; border-radius: 100px; border: 1px solid var(--line); transition: color 0.3s ease, border-color 0.3s ease; }
+  .pill .d { width: 0.55rem; height: 0.55rem; border-radius: 50%; transition: background 0.3s ease; }
+  .ucard__banner { padding: 0.85rem 1.4rem; font-size: 0.92rem; border-top: 1px solid var(--line); background: var(--cool); color: var(--ink); transition: background 0.3s ease, color 0.3s ease; min-height: 3rem; display: flex; align-items: center; gap: 0.6rem; }
+  .ucard__banner b { font-weight: 600; }
+  .ucard__foot { padding: 1.1rem 1.4rem 1.4rem; }
+  .ubtn { width: 100%; cursor: pointer; border: 0; border-radius: 12px; background: var(--ink); color: #fff;
+    font-family: var(--ui); font-weight: 600; font-size: 0.95rem; padding: 0.9rem 1rem; transition: background 0.25s ease; }
+  .ubtn:hover { background: var(--blue-dk); }
+  .ucard__hint { text-align: center; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.8rem; }
+
+  /* state colors driven by data-state */
+  .ucard[data-state="1"] .d { background: var(--red); }
+  .ucard[data-state="1"] .pill { color: var(--red); border-color: color-mix(in srgb, var(--red) 40%, var(--line)); }
+  .ucard[data-state="2"] .d { background: var(--blue); }
+  .ucard[data-state="2"] .pill { color: var(--blue); border-color: color-mix(in srgb, var(--blue) 40%, var(--line)); }
+  .ucard[data-state="3"] .d { background: var(--green); box-shadow: 0 0 0 0 rgba(46,184,108,0.5); animation: pulse 2.4s infinite; }
+  .ucard[data-state="3"] .pill { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, var(--line)); }
+  .ucard[data-state="3"] .ucard__banner { background: color-mix(in srgb, var(--green) 12%, #fff); }
+
+  /* Screens */
+  .screens { padding: clamp(2.5rem, 6vh, 4.5rem) 0 2rem; }
+  .screens h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.06; letter-spacing: -0.01em; max-width: 20ch; }
+  .screens .sub { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-top: 1.1rem; }
+  .film { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 2rem); margin-top: 2.75rem; }
+  @media (max-width: 820px) { .film { grid-template-columns: 1fr; max-width: 22rem; margin-inline: auto; } }
+  .phone { border-radius: 30px; padding: 0.7rem; box-shadow: 0 34px 60px -38px rgba(20,32,44,0.5); background: #E7ECEF; }
+  .phscreen { border-radius: 24px; overflow: hidden; aspect-ratio: 300 / 620; display: flex; flex-direction: column; }
+  .phscreen.warm { background: var(--warm); } .phscreen.cool { background: var(--cool); }
+  .phpad { padding: 1.25rem 1.05rem; flex: 1; }
+  .ph__label { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .ph__wm { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--blue); font-size: 1rem; margin-bottom: 0.8rem; }
+  .ph__wm .pd { color: var(--green); }
+  .prow { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+  .prow .nm { font-weight: 500; font-size: 0.9rem; }
+  .prow .tm { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .st { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
+  .st .d { width: 0.5rem; height: 0.5rem; border-radius: 50%; }
+  .d.green { background: var(--green); } .d.blue { background: var(--blue); } .d.red { background: var(--red); }
+  .st.green { color: var(--green); } .st.blue { color: var(--blue); } .st.red { color: var(--red); }
+  .cleaner { display: flex; flex-direction: column; height: 100%; text-align: center; }
+  .cleaner .head { background: var(--blue); color: #fff; margin: -1.25rem -1.05rem 0; padding: 1.4rem 1.05rem; font-family: var(--serif); font-style: italic; font-weight: 500; }
+  .cleaner .mid { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 1.5rem 0; }
+  .cleaner .place { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; }
+  .cleaner .q { color: var(--muted); font-size: 0.85rem; }
+  .bigbtn { background: var(--green); color: #fff; border-radius: 14px; padding: 1.1rem; font-weight: 600; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+  .bigbtn .d { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #fff; }
+  .langs { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.9rem; }
+  .guest { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 0.6rem; }
+  .guest .dotbig { width: 2.2rem; height: 2.2rem; border-radius: 50%; background: color-mix(in srgb, var(--green) 18%, #fff); display: grid; place-items: center; }
+  .guest .dotbig i { width: 0.85rem; height: 0.85rem; border-radius: 50%; background: var(--green); display: block; }
+  .guest h3 { font-family: var(--serif); font-weight: 500; font-size: 1.5rem; }
+  .guest p { color: var(--muted); font-size: 0.9rem; max-width: 22ch; }
+  .guest .time { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); }
+
+  /* Footer */
+  .foot { padding: clamp(3rem, 8vh, 5.5rem) 0 4rem; }
+  .foot__big { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 6vw, 4.5rem); line-height: 1.04; }
+  .foot__big .pd { color: var(--green); }
+  .status { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .status .dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--green); }
+  .colophon { margin-top: 2.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 0.8rem 2.5rem; justify-content: space-between; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .colophon a { border-bottom: 1px solid currentColor; padding-bottom: 0.1rem; }
+  .colophon a:hover { color: var(--blue); }
+
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .ask .g::after, .ucard[data-state="3"] .d { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="back" href="/">&larr; Elsewhere Index</a>
+  <span class="wm">Early<span class="pd">.</span> &middot; Turnover status</span>
+</header>
+
+<section class="hero wrap">
+  <div>
+    <p class="eyebrow">Fig. 05 &middot; turnover status for short-term rentals</p>
+    <h1 class="ask">Is it <span class="g">ready</span> for the next guest?</h1>
+    <p class="lede">Early answers one question at a glance. Your cleaner scans a sticker and taps one button. The moment a place is turned over, you see the green dot. Then you can offer early check-in with confidence.</p>
+  </div>
+  <div class="unit">
+    <div class="ucard" id="ucard" data-state="1">
+      <div class="ucard__top">
+        <div>
+          <div class="ucard__name">Marina Loft</div>
+          <div class="ucard__sub">Unit 2 &middot; 1 bed</div>
+        </div>
+        <span class="pill"><span class="d"></span><span id="u-pill">Guest still here</span></span>
+      </div>
+      <div class="ucard__banner" id="u-banner"><span id="u-banner-t">Checkout at 11:00. Next guest arrives 4:00.</span></div>
+      <div class="ucard__foot">
+        <button class="ubtn" id="u-btn" type="button">Cleaner scanned the sticker</button>
+        <p class="ucard__hint">Tap to walk the turnover</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screens">
+  <div class="wrap">
+    <h2>One question, answered for everyone who needs it.</h2>
+    <p class="sub">The host &middot; the cleaner &middot; the guest</p>
+    <div class="film">
+
+      <div class="phone">
+        <div class="phscreen warm">
+          <div class="phpad">
+            <p class="ph__wm">Early<span class="pd">.</span></p>
+            <p class="ph__label">Your places &middot; Tuesday</p>
+            <div class="prow"><div><div class="nm">Marina Loft</div><div class="tm">Turned over 12:40</div></div><span class="st green"><span class="d green"></span>Ready</span></div>
+            <div class="prow"><div><div class="nm">Oak St 2B</div><div class="tm">Cleaner on site</div></div><span class="st blue"><span class="d blue"></span>Cleaning</span></div>
+            <div class="prow"><div><div class="nm">Bayview 4</div><div class="tm">Checkout 11:00</div></div><span class="st red"><span class="d red"></span>Guest here</span></div>
+            <div class="prow"><div><div class="nm">Cedar Studio</div><div class="tm">Turned over 10:15</div></div><span class="st green"><span class="d green"></span>Ready</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="phscreen cool">
+          <div class="phpad cleaner">
+            <div class="head">Marina Loft</div>
+            <div class="mid">
+              <p class="ph__label">Scan complete</p>
+              <p class="place">All done?</p>
+              <p class="q">Tap once when the place is ready for the next guest.</p>
+              <div class="bigbtn"><span class="d"></span>It&rsquo;s ready</div>
+              <p class="langs">No app &middot; no login &middot; 12 languages</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="phscreen cool">
+          <div class="phpad guest">
+            <span class="dotbig"><i></i></span>
+            <p class="ph__label">A note from your host</p>
+            <h3>Your place is ready early.</h3>
+            <p>Marina Loft is turned over and waiting. Come whenever you like.</p>
+            <p class="time">Early check-in from 1:00</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot__big">In pilot, and quietly working.</p>
+    <span class="status"><span class="dot"></span>Early &middot; In pilot &middot; iOS &amp; web</span>
+    <div class="colophon">
+      <span>A study by <a href="/">Elsewhere Index</a></span>
+      <span>Dallas / Paris</span>
+      <span><a href="mailto:earl@dearnudges.com">Join the pilot</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var states = [
+      { pill: 'Guest still here', btn: 'Cleaner scanned the sticker', banner: 'Checkout at 11:00. Next guest arrives 4:00.' },
+      { pill: 'Turning over', btn: 'Cleaner taps “it’s ready”', banner: 'Cleaner on site since 11:20. Sticker scanned.' },
+      { pill: 'Ready for guest', btn: 'Start the next turnover', banner: '<b>Ready.</b> Early check-in available from 1:00.' }
+    ];
+    var card = document.getElementById('ucard');
+    var pill = document.getElementById('u-pill'), btn = document.getElementById('u-btn'), bannerT = document.getElementById('u-banner-t');
+    var s = 0;
+    btn.addEventListener('click', function () {
+      s = (s + 1) % states.length;
+      card.setAttribute('data-state', String(s + 1));
+      pill.textContent = states[s].pill;
+      btn.textContent = states[s].btn;
+      bannerT.innerHTML = states[s].banner;
+      var b = document.getElementById('u-banner');
+      b.animate([{ opacity: 0.3 }, { opacity: 1 }], { duration: 320, easing: 'ease' });
+    });
+  })();
+</script>
+
+</body>
+</html>

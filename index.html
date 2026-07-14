@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elsewhere Index</title>
-<meta name="description" content="An independent software studio, and an applied-AI practice for small business. Dallas and Paris.">
+<meta name="description" content="A design-and-technology studio. We build our own software, and we take on the work: applied AI, web, and design. Dallas and Paris.">
+<meta property="og:title" content="Elsewhere Index">
+<meta property="og:description" content="A design-and-technology studio. We build our own software, and we take on the work. Dallas and Paris.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth@8..144,100..1000,25..151&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,16 +19,19 @@
     --paper: #F0ECE2;
     --paper-2: #E9E4D8;
     --ink: #17140F;
-    --accent: #1A22DB;
+    --accent: #1A22DB;      /* klein-blue ultramarine */
+    --shout: #E5431E;       /* vermilion, the one loud field */
+    --hi: #C9F03A;          /* acid-green highlighter, used sparingly */
     --quiet: #6B665C;
     --line: rgba(23, 20, 15, 0.14);
     --line-2: rgba(23, 20, 15, 0.30);
+    --bar: 3.1rem;          /* header bar height */
     --flex: "Roboto Flex", "Helvetica Neue", Arial, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     background: var(--paper);
@@ -35,11 +41,11 @@
     font-size: 1.0625rem;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
   }
 
   ::selection { background: var(--accent); color: var(--paper); }
   a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
 
   /* Grain */
   .grain {
@@ -48,60 +54,155 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   }
 
-  .wrap { position: relative; z-index: 2; max-width: 74rem; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+  .wrap { position: relative; z-index: 2; max-width: 78rem; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
 
-  /* Running head */
-  .runhead {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 5;
-    display: flex; justify-content: space-between; gap: 1rem;
-    padding: 1.1rem clamp(1.25rem, 5vw, 4rem);
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink); mix-blend-mode: multiply;
+  /* ============ Header bar ============ */
+  .bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    height: var(--bar);
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: stretch;
   }
-  .runhead b { font-weight: 500; }
-  .runhead .mid { color: var(--quiet); }
-  @media (max-width: 640px) { .runhead .r { display: none; } }
+  .bar__in {
+    width: 100%; max-width: 84rem; margin: 0 auto;
+    padding: 0 clamp(1.1rem, 4vw, 2.4rem);
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .bar__mark {
+    font-family: var(--flex);
+    font-variation-settings: 'wght' 620, 'wdth' 82, 'opsz' 20;
+    font-size: 0.98rem; letter-spacing: 0.02em; text-transform: uppercase;
+    white-space: nowrap; line-height: 1;
+  }
+  .bar__meta {
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(240,236,226,0.55); white-space: nowrap;
+  }
+  .bar__nav { margin-left: auto; display: flex; align-items: center; gap: 0.35rem; }
 
-  /* Masthead */
+  .navlink {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--paper);
+    padding: 0.45rem 0.7rem; border-radius: 2px; cursor: pointer;
+    background: none; border: 0; position: relative;
+    transition: color 0.25s ease;
+  }
+  .navlink::after {
+    content: ""; position: absolute; inset: 0.22rem 0.34rem; z-index: -1;
+    background: var(--hi); border-radius: 1px;
+    transform: scaleX(0); transform-origin: left; transition: transform 0.28s ease;
+  }
+  .navlink:hover, .navlink[aria-expanded="true"] { color: var(--ink); }
+  .navlink:hover::after, .navlink[aria-expanded="true"]::after { transform: scaleX(1); }
+  .navlink .caret { display: inline-block; margin-left: 0.35rem; transition: transform 0.28s ease; }
+  .navlink[aria-expanded="true"] .caret { transform: rotate(180deg); }
+
+  /* Dropdown */
+  .drop { position: relative; }
+  .drop__panel {
+    position: absolute; top: calc(100% + 0.55rem); right: 0; z-index: 50;
+    width: min(24rem, 82vw);
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--ink);
+    box-shadow: 0 18px 40px -18px rgba(23,20,15,0.5);
+    padding: 0.5rem;
+    opacity: 0; visibility: hidden; transform: translateY(-6px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  }
+  .drop__panel.open { opacity: 1; visibility: visible; transform: none; }
+  .drop__head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--quiet);
+    padding: 0.5rem 0.7rem 0.7rem;
+  }
+  .dropitem {
+    display: grid; grid-template-columns: 2.2rem 1fr auto; align-items: baseline;
+    gap: 0.2rem 0.7rem; padding: 0.7rem; border-top: 1px solid var(--line);
+    transition: background 0.2s ease;
+  }
+  a.dropitem { cursor: pointer; }
+  a.dropitem:hover { background: var(--paper-2); }
+  .dropitem__fig { grid-row: 1 / 3; font-family: var(--mono); font-size: 0.62rem; color: var(--quiet); padding-top: 0.15rem; }
+  .dropitem__name {
+    font-family: var(--flex); font-variation-settings: 'wght' 560, 'wdth' 90, 'opsz' 24;
+    font-size: 1.12rem; letter-spacing: 0.005em; line-height: 1.05;
+  }
+  .dropitem__desc { grid-column: 2; font-size: 0.82rem; color: var(--quiet); line-height: 1.35; }
+  .dropitem__status {
+    grid-column: 3; grid-row: 1 / 3; align-self: center;
+    font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--quiet); white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+  }
+  .dot { width: 0.42rem; height: 0.42rem; border-radius: 50%; background: var(--quiet); }
+  .dot.live { background: var(--accent); }
+  .dot.soon { background: var(--shout); }
+  .dot.pilot { background: var(--ink); box-shadow: inset 0 0 0 1.5px var(--paper), 0 0 0 1.5px var(--ink); }
+  a.dropitem:hover .dropitem__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .dropitem .arrow { font-size: 0.7rem; }
+
+  @media (max-width: 720px) {
+    .bar__meta { display: none; }
+    .navlink { padding: 0.45rem 0.5rem; font-size: 0.64rem; }
+  }
+
+  /* ============ Masthead ============ */
   .masthead {
     position: relative; min-height: 100vh; min-height: 100svh;
     display: flex; flex-direction: column; justify-content: center;
-    padding: 7rem 0 4rem;
+    padding: calc(var(--bar) + 4rem) 0 4rem;
   }
-  #field { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; }
+  /* faint editorial baseline grid */
+  .masthead::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+    background-size: min(20vw, 15rem) 100%;
+    opacity: 0.5; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 80%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 80%, transparent);
+  }
   .masthead .wrap { z-index: 2; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--quiet); margin-bottom: 1.6rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .eyebrow::before { content: ""; width: 2.2rem; height: 1px; background: var(--line-2); }
 
   .wordmark {
     font-family: var(--flex);
     font-variation-settings: 'wght' var(--wght), 'wdth' var(--wdth), 'opsz' 144;
-    line-height: 0.82;
-    letter-spacing: -0.015em;
-    font-size: clamp(3.6rem, 15vw, 13rem);
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    font-size: clamp(3.4rem, 15vw, 13rem);
     text-transform: uppercase;
   }
   .wordmark .l1 { display: block; }
   .wordmark .l2 { display: block; color: var(--accent); }
 
   .lede {
-    margin-top: 2rem; max-width: 30ch;
-    font-size: clamp(1.15rem, 2.4vw, 1.6rem);
-    font-variation-settings: 'wght' 380, 'wdth' 100, 'opsz' 24;
-    line-height: 1.35;
+    margin-top: 2rem; max-width: 34ch;
+    font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+    font-variation-settings: 'wght' 380, 'wdth' 96, 'opsz' 24;
+    line-height: 1.34;
   }
+  .lede .accent { color: var(--accent); }
 
   .scrollcue {
-    margin-top: 3.5rem; font-family: var(--mono); font-size: 0.72rem;
+    margin-top: 3.25rem; font-family: var(--mono); font-size: 0.72rem;
     letter-spacing: 0.2em; text-transform: uppercase; color: var(--quiet);
     display: flex; align-items: center; gap: 0.75rem;
   }
   .scrollcue::before { content: ""; width: 2.5rem; height: 1px; background: var(--line-2); }
 
-  /* Index blocks */
+  /* ============ Index blocks ============ */
   .block {
     display: grid; grid-template-columns: 5.5rem minmax(0, 1fr);
     gap: clamp(1.25rem, 4vw, 3rem);
     padding: clamp(3.5rem, 9vh, 6rem) 0;
     border-top: 1px solid var(--line);
+    scroll-margin-top: var(--bar);
   }
   .block__idx {
     font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em;
@@ -117,79 +218,194 @@
   .heading {
     font-family: var(--flex);
     font-variation-settings: 'wght' var(--wght), 'wdth' var(--wdth), 'opsz' 72;
-    --wght: 300; --wdth: 60;
+    --wght: 300; --wdth: 55;
     font-size: clamp(2rem, 5.5vw, 4rem);
-    line-height: 1.02; text-transform: uppercase; letter-spacing: -0.01em;
+    line-height: 1.0; text-transform: uppercase; letter-spacing: -0.015em;
     opacity: 0; transform: translateY(10px);
     transition: --wght 0.9s ease, --wdth 0.9s ease, opacity 0.9s ease, transform 0.9s ease;
   }
-  .heading.in { --wght: 520; --wdth: 112; opacity: 1; transform: none; }
+  .heading.in { --wght: 560; --wdth: 108; opacity: 1; transform: none; }
 
-  .prose { max-width: 42ch; font-size: 1.08rem; line-height: 1.6; }
-  .prose.big { max-width: 30ch; font-size: clamp(1.25rem, 3vw, 1.9rem); line-height: 1.35; font-variation-settings: 'wght' 360, 'wdth' 100, 'opsz' 32; }
+  .prose { max-width: 44ch; font-size: 1.08rem; line-height: 1.6; }
+  .prose.big { max-width: 32ch; font-size: clamp(1.25rem, 3vw, 1.9rem); line-height: 1.32; font-variation-settings: 'wght' 360, 'wdth' 98, 'opsz' 32; }
+  .prose + .prose { margin-top: 1rem; }
   .prose .accent { color: var(--accent); }
 
-  /* Work entries */
-  .entries { border-top: 1px solid var(--line); margin-top: 0.5rem; }
-  .entry {
-    display: grid; grid-template-columns: 4.5rem minmax(0,1fr) auto;
-    grid-template-areas: "fig name status" "fig desc status";
-    column-gap: 1.5rem; row-gap: 0.4rem; align-items: baseline;
-    padding: 1.9rem 0; border-bottom: 1px solid var(--line);
-    position: relative;
+  /* ============ Apps: featured plates ============ */
+  .plates { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); margin-top: 2.25rem; }
+  @media (max-width: 720px) { .plates { grid-template-columns: minmax(0,1fr); } }
+
+  .plate { display: block; position: relative; }
+  .plate__frame {
+    position: relative; overflow: hidden; border: 1px solid var(--line-2);
+    background: var(--paper-2); aspect-ratio: 599 / 1120;
   }
-  .entry--link { cursor: pointer; }
-  .entry__fig { grid-area: fig; font-family: var(--mono); font-size: 0.74rem; color: var(--quiet); padding-top: 0.5rem; }
-  .entry__name {
-    grid-area: name; font-family: var(--flex);
-    font-variation-settings: 'wght' var(--wght), 'wdth' var(--wdth), 'opsz' 48;
-    --wght: 500; --wdth: 100;
-    font-size: clamp(1.9rem, 4.5vw, 3rem); line-height: 1; text-transform: uppercase; letter-spacing: -0.01em;
+  .plate__frame img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    transition: transform 0.9s cubic-bezier(.2,.7,.2,1);
+  }
+  .plate:hover .plate__frame img { transform: scale(1.035); }
+  .plate__figtag {
+    position: absolute; top: 0.7rem; left: 0.7rem; z-index: 2;
+    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+    background: var(--ink); color: var(--paper); padding: 0.28rem 0.5rem;
+  }
+  .plate__meta { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
+  .plate__name {
+    font-family: var(--flex); font-variation-settings: 'wght' 580, 'wdth' 96, 'opsz' 40;
+    font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1; text-transform: uppercase; letter-spacing: -0.01em;
     transition: --wdth 0.5s ease, color 0.3s ease;
   }
-  .entry--link:hover .entry__name { --wdth: 130; color: var(--accent); }
-  .entry__desc { grid-area: desc; color: var(--quiet); font-size: 1.02rem; margin-top: 0.25rem; }
-  .entry__status {
-    grid-area: status; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--ink); text-align: right; align-self: start; padding-top: 0.6rem; white-space: nowrap;
+  .plate:hover .plate__name { --wdth: 118; color: var(--accent); }
+  .plate__status {
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 0.4rem;
   }
-  .entry__status.soon { color: var(--accent); }
-  .entry__arrow { display: inline-block; transition: transform 0.35s ease; }
-  .entry--link:hover .entry__arrow { transform: translate(4px, -4px); }
+  .plate__desc { color: var(--quiet); font-size: 0.98rem; margin-top: 0.35rem; max-width: 40ch; }
+  .plate__go {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+  }
+  .plate__go .arrow { transition: transform 0.35s ease; }
+  .plate:hover .plate__go .arrow { transform: translate(3px, -3px); }
 
+  /* Apps: compact index for the rest */
+  .subindex { margin-top: 2.75rem; border-top: 1px solid var(--line); }
+  .row {
+    display: grid; grid-template-columns: 4rem minmax(0,1fr) auto;
+    grid-template-areas: "fig name status" "fig desc status";
+    column-gap: 1.5rem; row-gap: 0.3rem; align-items: baseline;
+    padding: 1.5rem 0; border-bottom: 1px solid var(--line);
+  }
+  a.row { cursor: pointer; transition: background 0.2s ease; }
+  a.row:hover { background: var(--paper-2); }
+  a.row:hover .row__name { color: var(--accent); }
+  a.row .row__go { display: inline-block; margin-left: 0.6rem; color: var(--accent); transition: transform 0.35s ease; }
+  a.row:hover .row__go { transform: translateX(4px); }
+  .row__fig { grid-area: fig; font-family: var(--mono); font-size: 0.72rem; color: var(--quiet); padding-top: 0.4rem; }
+  .row__name {
+    grid-area: name; font-family: var(--flex); font-variation-settings: 'wght' 520, 'wdth' 96, 'opsz' 40;
+    font-size: clamp(1.5rem, 3.6vw, 2.2rem); line-height: 1; text-transform: uppercase; letter-spacing: -0.01em;
+  }
+  .row__desc { grid-area: desc; color: var(--quiet); font-size: 0.98rem; margin-top: 0.2rem; }
+  .row__status {
+    grid-area: status; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink); text-align: right; align-self: center; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
   @media (max-width: 640px) {
     .block { grid-template-columns: minmax(0,1fr); gap: 0.85rem; }
     .block__idx { padding-top: 0; }
-    .entry { grid-template-columns: 3rem minmax(0,1fr); grid-template-areas: "fig name" "fig desc" "fig status"; }
-    .entry__status { text-align: left; padding-top: 0.5rem; }
+    .row { grid-template-columns: 3rem minmax(0,1fr); grid-template-areas: "fig name" "fig desc" "fig status"; }
+    .row__status { text-align: left; align-self: start; padding-top: 0.35rem; }
   }
 
-  /* Elsewhere AI callout */
-  .ai-cta {
-    display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 2rem;
-    font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.06em;
-    color: var(--accent); border-bottom: 1px solid var(--accent); padding-bottom: 0.2rem;
-    transition: gap 0.3s ease;
+  /* ============ Apps: specimen cards (dual action) ============ */
+  .specimens { margin-top: 2.5rem; border-top: 1px solid var(--line); }
+  .spec {
+    display: grid; grid-template-columns: clamp(6rem, 20vw, 10.5rem) minmax(0, 1fr);
+    gap: clamp(1.25rem, 3.5vw, 2.75rem); align-items: start;
+    padding: clamp(1.9rem, 4.5vh, 3rem) 0; border-bottom: 1px solid var(--line);
+    transition: background 0.35s ease; margin: 0 calc(-1 * clamp(0.6rem, 2vw, 1.4rem)); padding-inline: clamp(0.6rem, 2vw, 1.4rem);
   }
-  .ai-cta:hover { gap: 1rem; }
-  .ai-mail { margin-top: 1.25rem; font-family: var(--mono); font-size: 0.82rem; color: var(--quiet); }
+  .spec:hover { background: color-mix(in srgb, var(--brand) 7%, transparent); }
+  .spec__vis { display: block; overflow: hidden; aspect-ratio: 3 / 4; border-radius: 4px; border: 1px solid var(--line); background: var(--paper-2); position: relative; }
+  .spec__vis img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.9s cubic-bezier(.2,.7,.2,1); }
+  .spec:hover .spec__vis img { transform: scale(1.05); }
+  .spec__vis--teaser { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; text-align: center; padding: 1rem;
+    background: color-mix(in srgb, var(--brand) 16%, var(--paper)); border-color: color-mix(in srgb, var(--brand) 32%, var(--line)); }
+  .teaser__mark { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--brand); opacity: 0.9; }
+  .teaser__mark.ring { background: none; border: 2px solid var(--brand); }
+  .teaser__word { font-family: var(--flex); font-variation-settings: 'wght' 560, 'wdth' 78, 'opsz' 24; font-size: 1.05rem; line-height: 1; text-transform: uppercase; letter-spacing: 0.01em; color: color-mix(in srgb, var(--brand) 72%, var(--ink)); }
+  .teaser__sub { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in srgb, var(--brand) 55%, var(--quiet)); }
 
-  /* Colophon */
+  .spec__body { min-width: 0; }
+  .spec__top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--quiet); }
+  .spec__status { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--ink); white-space: nowrap; }
+  .spec__name {
+    font-family: var(--flex); font-variation-settings: 'wght' 560, 'wdth' 104, 'opsz' 60;
+    font-size: clamp(2rem, 5.2vw, 3.5rem); line-height: 0.98; text-transform: uppercase; letter-spacing: -0.015em;
+    margin: 0.85rem 0 0; transition: color 0.3s ease;
+  }
+  .spec:hover .spec__name { color: var(--brand); }
+  .spec__hook { margin-top: 0.75rem; max-width: 48ch; font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.45; font-variation-settings: 'wght' 380; color: var(--ink); }
+  .spec__acts { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .btn { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 0.62rem 0.9rem; border-radius: 2px; display: inline-flex; align-items: center; gap: 0.45rem;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease; white-space: nowrap; }
+  .btn--dl { border: 1px solid var(--line-2); color: var(--ink); }
+  .btn--dl:hover { border-color: var(--brand); color: var(--brand); }
+  .btn--page { background: var(--brand); color: #fff; border: 1px solid var(--brand); }
+  .btn--page:hover { transform: translateX(3px); }
+  .btn--page .a { transition: transform 0.3s ease; }
+  .btn--page:hover .a { transform: translateX(2px); }
+
+  @media (max-width: 560px) {
+    .spec { grid-template-columns: 4.5rem minmax(0,1fr); gap: 1rem; }
+    .spec__name { margin-top: 0.5rem; }
+  }
+
+  /* ============ Studio / services ============ */
+  .svc { border-top: 1px solid var(--line); margin-top: 2.25rem; }
+  .svc__row {
+    display: grid; grid-template-columns: 4rem minmax(0,1fr); column-gap: 1.5rem;
+    padding: 1.9rem 0; border-bottom: 1px solid var(--line);
+  }
+  .svc__no { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); padding-top: 0.5rem; }
+  .svc__name {
+    font-family: var(--flex); font-variation-settings: 'wght' 540, 'wdth' 92, 'opsz' 40;
+    font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: 1.02; text-transform: uppercase; letter-spacing: -0.01em;
+  }
+  .svc__desc { color: var(--quiet); font-size: 1.02rem; margin-top: 0.6rem; max-width: 52ch; }
+  .svc__desc b { color: var(--ink); font-variation-settings: 'wght' 560; }
+  @media (max-width: 640px) { .svc__row { grid-template-columns: minmax(0,1fr); row-gap: 0.5rem; } }
+
+  /* ============ Color break ============ */
+  .shout {
+    position: relative; z-index: 2; background: var(--shout); color: var(--paper);
+    margin-top: clamp(3.5rem, 9vh, 6rem);
+    scroll-margin-top: var(--bar);
+  }
+  .shout .wrap { padding-top: clamp(4rem, 11vh, 8rem); padding-bottom: clamp(4rem, 11vh, 8rem); }
+  .shout__eyebrow {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(240,236,226,0.72); margin-bottom: 1.75rem;
+  }
+  .shout__quote {
+    font-family: var(--flex); font-variation-settings: 'wght' 620, 'wdth' 84, 'opsz' 96;
+    font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: 0.98; letter-spacing: -0.02em; text-transform: uppercase;
+    max-width: 18ch;
+  }
+  .shout__sub { margin-top: 1.75rem; max-width: 46ch; font-size: 1.1rem; line-height: 1.5; color: rgba(240,236,226,0.9); }
+  .shout__cta {
+    display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 2.25rem;
+    background: var(--hi); color: var(--ink);
+    font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.85rem 1.15rem; border: 1px solid var(--ink);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .shout__cta:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
+  .shout__mail { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.82rem; color: rgba(240,236,226,0.85); }
+  .shout__mail a { border-bottom: 1px solid rgba(240,236,226,0.5); padding-bottom: 0.1rem; }
+  ::selection { }
+  .shout ::selection { background: var(--ink); color: var(--shout); }
+
+  /* ============ Colophon ============ */
   .colophon {
-    border-top: 1px solid var(--line-2); margin-top: 2rem;
+    position: relative; z-index: 2;
     padding: 2.5rem 0 4rem;
     display: flex; flex-wrap: wrap; gap: 1rem 2.5rem; justify-content: space-between;
     font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--quiet);
   }
   .colophon b { color: var(--ink); font-weight: 500; }
 
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .heading { transition: opacity 0.4s ease; --wght: 460; --wdth: 100; }
-    .entry__name, .ai-cta, .entry__arrow { transition: none; }
-    #field { display: none; }
+    .heading { transition: opacity 0.4s ease; --wght: 520; --wdth: 104; }
+    .plate__frame img, .plate__name, .navlink::after, .plate__go .arrow, .shout__cta { transition: none; }
   }
 </style>
 </head>
@@ -197,91 +413,236 @@
 
 <div class="grain" aria-hidden="true"></div>
 
-<header class="runhead" aria-hidden="true">
-  <span><b>Elsewhere Index</b></span>
-  <span class="mid">Est. 2026</span>
-  <span class="r">Dallas / Paris</span>
+<!-- ============ Header bar ============ -->
+<header class="bar">
+  <div class="bar__in">
+    <a href="#top" class="bar__mark">Elsewhere Index</a>
+    <span class="bar__meta">Studio &middot; Est. 2026</span>
+    <nav class="bar__nav" aria-label="Primary">
+      <div class="drop">
+        <button class="navlink" id="appsBtn" aria-expanded="false" aria-controls="appsPanel" aria-haspopup="true">
+          Apps <span class="caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <div class="drop__panel" id="appsPanel" role="menu" aria-labelledby="appsBtn">
+          <div class="drop__head"><span>The catalog</span><span>05 titles</span></div>
+
+          <a class="dropitem" role="menuitem" href="https://dearnudges.com" target="_blank" rel="noopener">
+            <span class="dropitem__fig">01</span>
+            <span class="dropitem__name">Dear</span>
+            <span class="dropitem__desc">A gentle daily nudge to stay in touch.</span>
+            <span class="dropitem__status"><span class="dot live"></span>Live <span class="arrow" aria-hidden="true">&#8599;</span></span>
+          </a>
+
+          <a class="dropitem" role="menuitem" href="https://apps.apple.com/us/app/twelve-thirty-four/id6761194006" target="_blank" rel="noopener">
+            <span class="dropitem__fig">02</span>
+            <span class="dropitem__name">Twelve Thirty Four</span>
+            <span class="dropitem__desc">Ordering and standing orders for a working florist.</span>
+            <span class="dropitem__status"><span class="dot live"></span>Live <span class="arrow" aria-hidden="true">&#8599;</span></span>
+          </a>
+
+          <a class="dropitem" role="menuitem" href="/florilegium/">
+            <span class="dropitem__fig">03</span>
+            <span class="dropitem__name">Florilegium</span>
+            <span class="dropitem__desc">A field guide to flowers, built with Twelve Thirty Four.</span>
+            <span class="dropitem__status"><span class="dot soon"></span>Soon <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          </a>
+
+          <a class="dropitem" role="menuitem" href="/whim/">
+            <span class="dropitem__fig">04</span>
+            <span class="dropitem__name">Whim</span>
+            <span class="dropitem__desc">One spontaneous thing to do, once a day.</span>
+            <span class="dropitem__status"><span class="dot soon"></span>Soon <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          </a>
+
+          <a class="dropitem" role="menuitem" href="/early/">
+            <span class="dropitem__fig">05</span>
+            <span class="dropitem__name">Early Check-In</span>
+            <span class="dropitem__desc">Turnover status for short-term rentals.</span>
+            <span class="dropitem__status"><span class="dot pilot"></span>Pilot <span class="arrow" aria-hidden="true">&rarr;</span></span>
+          </a>
+        </div>
+      </div>
+      <a href="#studio" class="navlink">Studio</a>
+      <a href="#contact" class="navlink">Contact</a>
+    </nav>
+  </div>
 </header>
 
-<!-- Masthead -->
-<section class="masthead">
-  <canvas id="field" aria-hidden="true"></canvas>
+<!-- ============ Masthead ============ -->
+<section class="masthead" id="top">
   <div class="wrap">
+    <p class="eyebrow">Elsewhere Index &middot; Dallas / Paris</p>
     <h1 class="wordmark" id="wordmark">
       <span class="l1">Elsewhere</span>
       <span class="l2">Index</span>
     </h1>
-    <p class="lede">An independent software studio, and an applied-AI practice for small business.</p>
+    <p class="lede">A design-and-technology studio. We build our own software, and we take on the work: <span class="accent">applied AI, web, and design.</span></p>
     <p class="scrollcue">Scroll to browse the index</p>
   </div>
 </section>
 
 <main class="wrap">
 
+  <!-- 00 About -->
   <section class="block">
     <div class="block__idx">00</div>
     <div class="block__body">
       <p class="kicker">About</p>
-      <p class="prose big">Elsewhere Index is the studio behind a small family of apps, and <span class="accent">Elsewhere AI</span>, our practice installing Claude for the businesses that want it done right. Independent, and small on purpose.</p>
+      <p class="prose big">Elsewhere Index is a small studio that ships its own apps and takes on outside work. We care how a thing looks, how it reads, and whether it actually holds up in someone's day. Independent, and small on purpose.</p>
     </div>
   </section>
 
-  <section class="block">
+  <!-- 01 Apps -->
+  <section class="block" id="apps">
     <div class="block__idx">01</div>
     <div class="block__body">
-      <h2 class="heading">The work</h2>
-      <div class="entries" style="margin-top:2.25rem;">
+      <p class="kicker">The catalog</p>
+      <h2 class="heading">Apps we build</h2>
 
-        <a class="entry entry--link" href="https://dearnudges.com" target="_blank" rel="noopener">
-          <span class="entry__fig">Fig. 01</span>
-          <span class="entry__name">Dear</span>
-          <span class="entry__desc">An app for keeping up with the people who matter.</span>
-          <span class="entry__status">Live &middot; iOS &amp; Android <span class="entry__arrow">&#8599;</span></span>
-        </a>
+      <div class="specimens">
 
-        <div class="entry">
-          <span class="entry__fig">Fig. 02</span>
-          <span class="entry__name">Whim</span>
-          <span class="entry__desc">In development.</span>
-          <span class="entry__status soon">Coming soon</span>
-        </div>
+        <article class="spec" style="--brand:#5A67C8">
+          <a class="spec__vis" href="https://dearnudges.com" target="_blank" rel="noopener" aria-label="Dear">
+            <img src="assets/img/dear-01.jpg" width="599" height="1299" loading="lazy" alt="The Dear app showing a daily nudge to reach out to a contact.">
+          </a>
+          <div class="spec__body">
+            <div class="spec__top"><span>Fig. 01</span><span class="spec__status"><span class="dot live"></span>Live &middot; iOS &amp; Android</span></div>
+            <h3 class="spec__name">Dear</h3>
+            <p class="spec__hook">One person a day, surfaced before you forget them. Text, call, done. The app keeps the thread so you can just say hello.</p>
+            <div class="spec__acts">
+              <a class="btn btn--dl" href="https://apps.apple.com/us/app/dear-stay-in-touch/id6760280035" target="_blank" rel="noopener">&#8595; App Store</a>
+              <a class="btn btn--dl" href="https://play.google.com/store/apps/details?id=com.elsewhere.dear" target="_blank" rel="noopener">&#8595; Google Play</a>
+              <a class="btn btn--page" href="https://dearnudges.com" target="_blank" rel="noopener">See the page <span class="a" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
 
-        <div class="entry">
-          <span class="entry__fig">Fig. 03</span>
-          <span class="entry__name">Twelve Thirty Four</span>
-          <span class="entry__desc">Software for a flower shop.</span>
-          <span class="entry__status">In progress</span>
-        </div>
+        <article class="spec" style="--brand:#A8446A">
+          <a class="spec__vis" href="/twelve-thirty-four/" aria-label="Twelve Thirty Four">
+            <img src="assets/img/ttf-gallery.jpg" width="598" height="1299" loading="lazy" alt="Twelve Thirty Four showing a florist arrangement in the gallery.">
+          </a>
+          <div class="spec__body">
+            <div class="spec__top"><span>Fig. 02</span><span class="spec__status"><span class="dot live"></span>Live &middot; App Store</span></div>
+            <h3 class="spec__name">Twelve Thirty Four</h3>
+            <p class="spec__hook">A working flower shop, in your pocket. Ordering, gifting, occasions, and standing orders, for the shop and the customer at once.</p>
+            <div class="spec__acts">
+              <a class="btn btn--dl" href="https://apps.apple.com/us/app/twelve-thirty-four/id6761194006" target="_blank" rel="noopener">&#8595; App Store</a>
+              <a class="btn btn--page" href="/twelve-thirty-four/">See the page <span class="a" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="spec" style="--brand:#8B4A5A">
+          <a class="spec__vis spec__vis--teaser" href="/florilegium/" aria-label="Florilegium">
+            <span class="teaser__mark"></span>
+            <span class="teaser__word">Florilegium</span>
+            <span class="teaser__sub">the language of flowers</span>
+          </a>
+          <div class="spec__body">
+            <div class="spec__top"><span>Fig. 03</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
+            <h3 class="spec__name">Florilegium</h3>
+            <p class="spec__hook">One flower a night. Its name, its story, and the small thing it was always trying to tell you. A companion to Twelve Thirty Four.</p>
+            <div class="spec__acts">
+              <a class="btn btn--page" href="/florilegium/">See the page <span class="a" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="spec" style="--brand:#FF5A1F">
+          <a class="spec__vis" href="/whim/" aria-label="Whim">
+            <img src="assets/img/whim/10-free-will-maxxing.jpg" width="900" height="1951" loading="lazy" alt="Whim: free will maxxing.">
+          </a>
+          <div class="spec__body">
+            <div class="spec__top"><span>Fig. 04</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
+            <h3 class="spec__name">Whim</h3>
+            <p class="spec__hook">Every day, one slightly unhinged thing to do. Get outside, make something, say the thing. Then you close the app. Free will, maxxed.</p>
+            <div class="spec__acts">
+              <a class="btn btn--page" href="/whim/">See the page <span class="a" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="spec" style="--brand:#2EB86C">
+          <a class="spec__vis spec__vis--teaser" href="/early/" aria-label="Early Check-In">
+            <span class="teaser__mark"></span>
+            <span class="teaser__word">Early</span>
+            <span class="teaser__sub">ready for the next guest</span>
+          </a>
+          <div class="spec__body">
+            <div class="spec__top"><span>Fig. 05</span><span class="spec__status"><span class="dot pilot"></span>In pilot</span></div>
+            <h3 class="spec__name">Early Check-In</h3>
+            <p class="spec__hook">Is the place ready for the next guest? Your cleaner taps one button, and a single green dot answers, for the host, the cleaner, and the guest.</p>
+            <div class="spec__acts">
+              <a class="btn btn--page" href="/early/">See the page <span class="a" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
 
       </div>
     </div>
   </section>
 
-  <section class="block">
+  <!-- 02 Studio -->
+  <section class="block" id="studio">
     <div class="block__idx">02</div>
     <div class="block__body">
-      <p class="kicker">Elsewhere AI</p>
-      <h2 class="heading" style="margin-bottom:1.75rem;">Applied AI</h2>
-      <p class="prose">Anthropic launched Claude for Small Business. The product is free. Installing it well is not. We run the workflow audit, do the install, write the custom skills that make it useful, and train your team. Three weeks in, your people have hours back.</p>
-      <a class="ai-cta" href="mailto:earl@dearnudges.com">Start with a workflow audit <span aria-hidden="true">&rarr;</span></a>
-      <p class="ai-mail">earl@dearnudges.com</p>
+      <p class="kicker">The studio</p>
+      <h2 class="heading">Work for others</h2>
+      <p class="prose" style="margin-top:1.5rem;">The same hands that build the apps take on client work. A short list of what we do, and one way in.</p>
+
+      <div class="svc">
+        <div class="svc__row">
+          <span class="svc__no">a</span>
+          <div>
+            <div class="svc__name">Applied AI</div>
+            <p class="svc__desc"><b>Elsewhere AI.</b> Anthropic launched Claude for Small Business, and the product is free. Installing it well is not. We run the workflow audit, do the install, write the custom skills that make it useful, and train your team.</p>
+          </div>
+        </div>
+        <div class="svc__row">
+          <span class="svc__no">b</span>
+          <div>
+            <div class="svc__name">Web &amp; Design</div>
+            <p class="svc__desc">Sites and product design for people who care how it looks and how it works. This site is the practice ground; your project is the point.</p>
+          </div>
+        </div>
+        <div class="svc__row">
+          <span class="svc__no">c</span>
+          <div>
+            <div class="svc__name">And what&rsquo;s next</div>
+            <p class="svc__desc">New tools arrive every month. If a problem is shaped like software or design, there is a good chance we can help you get ahead of it.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
+</main>
+
+<!-- Color break / contact -->
+<section class="shout" id="contact">
+  <div class="wrap">
+    <p class="shout__eyebrow">Work with the studio</p>
+    <p class="shout__quote">Start with a workflow audit.</p>
+    <p class="shout__sub">Three weeks in, your people have hours back and a tool that fits how they actually work. Tell us where the day gets stuck, and we will show you what to hand off first.</p>
+    <a class="shout__cta" href="mailto:earl@dearnudges.com">Get in touch <span aria-hidden="true">&rarr;</span></a>
+    <p class="shout__mail"><a href="mailto:earl@dearnudges.com">earl@dearnudges.com</a></p>
+  </div>
+</section>
+
+<div class="wrap">
   <footer class="colophon">
     <span><b>Elsewhere Index LLC</b></span>
     <span>Dallas / Paris</span>
-    <span>Software &amp; Applied AI</span>
+    <span>Software, AI &amp; Design</span>
     <span>&copy; 2026</span>
   </footer>
-
-</main>
+</div>
 
 <script>
   (function () {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Kinetic wordmark: width/weight morph with scroll over the masthead.
+    /* Kinetic wordmark: width/weight morph with scroll over the masthead. */
     var wordmark = document.getElementById('wordmark');
     var mast = document.querySelector('.masthead');
     var ticking = false;
@@ -304,59 +665,28 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
     } else {
-      wordmark.style.setProperty('--wdth', '110');
+      wordmark.style.setProperty('--wdth', '112');
       wordmark.style.setProperty('--wght', '440');
     }
 
-    // Headings stretch in on reveal.
+    /* Headings + plates stretch/fade in on reveal. */
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.35 });
     document.querySelectorAll('.heading').forEach(function (h) { io.observe(h); });
 
-    // Generative dot-field on the masthead, nudged by the cursor.
-    if (!reduce) {
-      var canvas = document.getElementById('field');
-      var ctx = canvas.getContext('2d');
-      var dpr = Math.min(2, window.devicePixelRatio || 1);
-      var pts = [], mouse = { x: -9999, y: -9999 }, W = 0, H = 0, GAP = 46;
-      function build() {
-        W = mast.offsetWidth; H = mast.offsetHeight;
-        canvas.width = W * dpr; canvas.height = H * dpr;
-        canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        pts = [];
-        for (var y = GAP; y < H - GAP * 0.5; y += GAP)
-          for (var x = GAP; x < W; x += GAP)
-            pts.push({ x: x, y: y, ox: x, oy: y });
-      }
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-        for (var i = 0; i < pts.length; i++) {
-          var pt = pts[i];
-          var dx = pt.ox - mouse.x, dy = pt.oy - mouse.y;
-          var d = Math.sqrt(dx * dx + dy * dy);
-          var force = Math.max(0, 130 - d) / 130;
-          var tx = pt.ox + (dx / (d || 1)) * force * 26;
-          var ty = pt.oy + (dy / (d || 1)) * force * 26;
-          pt.x += (tx - pt.x) * 0.12; pt.y += (ty - pt.y) * 0.12;
-          var r = 1 + force * 2.2;
-          ctx.beginPath();
-          ctx.arc(pt.x, pt.y, r, 0, 6.2832);
-          ctx.fillStyle = force > 0.15 ? 'rgba(26,34,219,' + (0.25 + force * 0.5) + ')' : 'rgba(23,20,15,0.16)';
-          ctx.fill();
-        }
-        requestAnimationFrame(draw);
-      }
-      mast.addEventListener('pointermove', function (e) {
-        var rect = mast.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top;
-      });
-      mast.addEventListener('pointerleave', function () { mouse.x = -9999; mouse.y = -9999; });
-      build(); draw();
-      var rt;
-      window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(build, 200); });
-    }
+    /* Apps dropdown: hover on desktop, click/tap everywhere, Esc to close. */
+    var btn = document.getElementById('appsBtn');
+    var panel = document.getElementById('appsPanel');
+    var drop = btn.parentElement;
+    var hover = window.matchMedia('(hover: hover)').matches;
+    function open() { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+    function close() { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    function toggle() { panel.classList.contains('open') ? close() : open(); }
+
+    btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
+    document.addEventListener('click', function (e) { if (!drop.contains(e.target)) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   })();
 </script>
 
