@@ -240,6 +240,7 @@
   /* idle smear on hover */
   .wordmark:hover .ch--c { opacity: 0.55; transform: translate(-0.05em, -0.02em); transition: transform 0.18s ease, opacity 0.18s ease; }
   .wordmark:hover .ch--m { opacity: 0.55; transform: translate(0.05em, 0.02em); transition: transform 0.18s ease, opacity 0.18s ease; }
+  @media (max-width: 700px) { .wordmark { font-size: clamp(2.3rem, 12.5vw, 6rem); } }
 
   .reg {
     margin-top: 1.5rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em;
@@ -767,7 +768,9 @@
     var axisEl = document.getElementById('axis');
 
     /* ---- axis state (scroll + drag drive the same variable-font props) ---- */
-    var curW = 140, curG = 300, dragging = false;
+    /* start narrower on phones so the wordmark fits the viewport (no sideways scroll) */
+    var W0 = window.innerWidth <= 700 ? 84 : 140, W1 = 62;
+    var curW = W0, curG = 300, dragging = false;
     function setAxes(wdth, wght) {
       curW = wdth; curG = wght;
       wordmark.style.setProperty('--wdth', wdth.toFixed(1));
@@ -782,13 +785,13 @@
       requestAnimationFrame(function () {
         var h = mast.offsetHeight || window.innerHeight;
         var p = Math.min(1, Math.max(0, window.scrollY / h));
-        setAxes(140 - p * 78, 300 + p * 480);
+        setAxes(W0 - p * (W0 - W1), 300 + p * 480);
         ticking = false;
       });
     }
 
     if (!reduce) {
-      setAxes(140, 300);
+      setAxes(W0, 300);
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
       /* the print proof: plates arrive off-register, then lock in */
@@ -800,7 +803,7 @@
         }, 260);
       });
     } else {
-      setAxes(112, 440);
+      setAxes(window.innerWidth <= 700 ? 84 : 112, 440);
       document.getElementById('regline').classList.add('in');
     }
 
