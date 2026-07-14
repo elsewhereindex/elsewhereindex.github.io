@@ -53,12 +53,14 @@
     padding: clamp(2rem, 5vh, 4rem) 0 clamp(3rem, 7vh, 5.5rem); }
   @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
   .eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.6rem; }
-  .ask { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 7vw, 5.2rem); line-height: 1.02; letter-spacing: -0.015em; }
+  .ask { font-family: var(--serif); font-weight: 300; font-size: clamp(2.3rem, 6vw, 5.2rem); line-height: 1.03; letter-spacing: -0.015em; overflow-wrap: break-word; }
   .ask em { font-style: italic; color: var(--plum); }
   .lede { margin-top: 1.8rem; max-width: 40ch; font-size: clamp(1.08rem, 1.6vw, 1.25rem); line-height: 1.6; color: #4A4038; }
+  .hero > div { min-width: 0; }
+  @media (max-width: 560px) { .ask { font-size: 2.2rem; } }
 
   /* Bloom (CSS flower) */
-  .bloomcard { justify-self: center; width: min(24rem, 100%); }
+  .bloomcard { justify-self: center; width: 100%; max-width: 24rem; min-width: 0; }
   .plate { background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
     box-shadow: 0 30px 60px -34px rgba(43,33,26,0.5); padding: 2rem 2rem 1.75rem; text-align: center; position: relative; overflow: hidden; }
   .plate__tag { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); }
@@ -147,7 +149,7 @@
   <div>
     <p class="eyebrow">Fig. 03 &middot; the language of flowers</p>
     <h1 class="ask">Do you know what your flowers are <em>trying to say?</em></h1>
-    <p class="lede">Florilegium is a field guide to flowers and the old language of what they mean. One flower a night. Its name, its story, and the small thing it was always trying to tell you.</p>
+    <p class="lede">A field guide to flowers, and the old language of what they mean. One a night.</p>
   </div>
   <div class="bloomcard">
     <div class="plate">

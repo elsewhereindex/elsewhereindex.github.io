@@ -55,8 +55,9 @@
   .wm { font-weight: 800; letter-spacing: -0.03em; line-height: 0.9; }
   .ask {
     font-weight: 800; letter-spacing: -0.035em; line-height: 0.92; text-transform: lowercase;
-    font-size: clamp(2.9rem, 10.5vw, 8.5rem); max-width: 15ch;
+    font-size: clamp(2.4rem, 9vw, 8.5rem); max-width: 15ch; overflow-wrap: break-word;
   }
+  @media (max-width: 560px) { .ask { font-size: 2.5rem; } }
   .ask .u { position: relative; white-space: nowrap; }
   .ask .u::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0.08em; height: 0.11em; background: var(--lime); }
   .lede { margin-top: 2rem; max-width: 42ch; font-size: clamp(1.15rem, 2.4vw, 1.55rem); font-weight: 500; line-height: 1.4; }
@@ -128,7 +129,7 @@
   <div class="wrap">
     <p class="eyebrow">Fig. 04 &middot; a field study in doing the thing</p>
     <h1 class="ask">when did you last do something for <span class="u">no reason?</span></h1>
-    <p class="lede">Every day, Whim hands you one thing to do. Get outside, make something, say the thing. Then close the app and the rest of the day is yours. <span class="wink">Maybe slightly unhinged.</span></p>
+    <p class="lede">Every day, one thing to do. Then you close the app. <span class="wink">Maybe slightly unhinged.</span></p>
 
     <div class="deal">
       <div class="card">

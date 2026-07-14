@@ -44,7 +44,9 @@
     padding: clamp(2rem, 5vh, 4rem) 0 clamp(3rem, 7vh, 5.5rem); }
   @media (max-width: 880px) { .hero { grid-template-columns: 1fr; } }
   .eyebrow { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.4rem; }
-  .ask { font-family: var(--serif); font-weight: 500; font-size: clamp(2.9rem, 7.5vw, 6rem); line-height: 1.0; letter-spacing: -0.005em; }
+  .ask { font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 6.4vw, 6rem); line-height: 1.02; letter-spacing: -0.005em; overflow-wrap: break-word; }
+  .hero > div { min-width: 0; }
+  @media (max-width: 560px) { .ask { font-size: 2.7rem; } }
   .ask em { font-style: italic; font-weight: 400; color: var(--rose); }
   .lede { margin-top: 1.7rem; max-width: 42ch; font-size: clamp(1.08rem, 1.6vw, 1.22rem); color: #40382F; }
   .acts { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.7rem; align-items: center; }
@@ -56,7 +58,7 @@
   .status { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--taupe); display: inline-flex; align-items: center; gap: 0.45rem; }
   .status .d { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--sage); }
 
-  .herofig { justify-self: center; position: relative; width: min(20rem, 100%); }
+  .herofig { justify-self: center; position: relative; width: 100%; max-width: 20rem; min-width: 0; }
   .herofig img { width: 100%; border-radius: 20px; border: 1px solid var(--line); box-shadow: 0 40px 70px -34px rgba(23,19,15,0.6); }
   .herofig .cap { position: absolute; left: -0.5rem; top: 1rem; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; background: var(--char); color: var(--ivory); padding: 0.3rem 0.55rem; }
 
@@ -95,7 +97,7 @@
   <div>
     <p class="eyebrow">Fig. 02 &middot; a flower shop, in your pocket</p>
     <h1 class="ask">Every arrangement, and everyone it&rsquo;s <em>for.</em></h1>
-    <p class="lede">Ordering, gifting, occasions, and standing orders for a working florist. Twelve Thirty Four holds the shop and the customer at once, so nothing worth remembering slips through.</p>
+    <p class="lede">Ordering, gifting, occasions, and standing orders for a working florist. The shop and the customer, in one place.</p>
     <div class="acts">
       <a class="btn btn--store" href="https://apps.apple.com/us/app/twelve-thirty-four/id6761194006" target="_blank" rel="noopener">&#8595; App Store</a>
       <span class="status"><span class="d"></span>Live on iOS</span>
