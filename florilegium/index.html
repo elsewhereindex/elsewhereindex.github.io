@@ -64,16 +64,8 @@
   .plate { background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
     box-shadow: 0 30px 60px -34px rgba(43,33,26,0.5); padding: 2rem 2rem 1.75rem; text-align: center; position: relative; overflow: hidden; }
   .plate__tag { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); }
-  .bloom { --petal: var(--gold-lt); --core: #5C3A22; position: relative; width: 190px; height: 190px; margin: 1.4rem auto 0.4rem; }
-  .bloom .layer { position: absolute; inset: 0; }
-  .bloom .petal { position: absolute; left: 50%; top: 50%; width: 30px; height: 78px;
-    background: radial-gradient(60% 80% at 50% 30%, color-mix(in srgb, var(--petal) 78%, #fff) 0%, var(--petal) 70%);
-    border-radius: 50% 50% 46% 46%; transform-origin: 50% 0; opacity: 0.92; transition: background 0.6s ease; }
-  .bloom .layer.inner .petal { height: 54px; opacity: 0.85; filter: brightness(1.05); }
-  .bloom .core { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; border-radius: 50%;
-    transform: translate(-50%, -50%); background: radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--core) 70%, #fff) 0%, var(--core) 75%); z-index: 3; transition: background 0.6s ease; }
-  .stem { width: 3px; height: 34px; background: var(--sage); margin: -6px auto 0; border-radius: 2px; }
-  .leaf { width: 26px; height: 12px; background: var(--sage-2); border-radius: 0 60% 0 60%; margin: -14px auto 0; transform: translateX(14px) rotate(8deg); }
+  .drawwrap { width: 100%; max-width: 15rem; aspect-ratio: 7 / 5; margin: 0.5rem auto 0; }
+  .drawwrap img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: opacity 0.45s ease; }
 
   .plate__name { font-family: var(--serif); font-weight: 400; font-size: clamp(1.7rem, 4vw, 2.3rem); line-height: 1.05; margin-top: 1rem; transition: opacity 0.4s ease; }
   .plate__latin { font-family: var(--serif); font-style: italic; font-weight: 300; color: var(--taupe); font-size: 1rem; margin-top: 0.2rem; }
@@ -116,11 +108,8 @@
   .ph__nav { padding: 0.6rem; margin: 0 0.9rem 0.9rem; background: var(--ink); color: var(--cream); border-radius: 22px; display: flex; justify-content: space-around;
     font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.12em; text-transform: uppercase; }
   .ph__nav .on { color: var(--gold-lt); }
-  .minibloom { --petal: var(--gold-lt); --core: #5C3A22; position: relative; width: 116px; height: 116px; margin: 0.8rem auto; }
-  .minibloom .petal { position: absolute; left: 50%; top: 50%; width: 19px; height: 48px; transform-origin: 50% 0;
-    background: radial-gradient(60% 80% at 50% 30%, color-mix(in srgb, var(--petal) 80%, #fff), var(--petal) 70%); border-radius: 50% 50% 46% 46%; opacity: 0.9; }
-  .minibloom .core { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; border-radius: 50%; transform: translate(-50%,-50%);
-    background: radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--core) 70%, #fff), var(--core) 75%); }
+  .minidraw { width: 8.5rem; aspect-ratio: 7 / 5; margin: 0.6rem auto 0.2rem; }
+  .minidraw img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
 
   /* Footer */
   .foot { padding: clamp(3rem, 8vh, 5.5rem) 0 4rem; }
@@ -133,7 +122,7 @@
   .colophon a:hover { color: var(--plum); }
 
   :focus-visible { outline: 2px solid var(--plum); outline-offset: 3px; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .bloom .petal, .bloom .core, .plate__name { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .drawwrap img, .plate__name { transition: none; } }
 </style>
 </head>
 <body>
@@ -154,13 +143,7 @@
   <div class="bloomcard">
     <div class="plate">
       <span class="plate__tag" id="fl-tag">Tonight&rsquo;s flower</span>
-      <div class="bloom" id="bloom" aria-hidden="true">
-        <div class="layer outer"></div>
-        <div class="layer inner"></div>
-        <div class="core"></div>
-      </div>
-      <div class="stem" aria-hidden="true"></div>
-      <div class="leaf" aria-hidden="true"></div>
+      <div class="drawwrap"><img id="fl-img" src="/assets/img/florilegium/draw/chrysanthemum.png" alt="" width="1376" height="768"></div>
       <h2 class="plate__name" id="fl-name">Chrysanthemum</h2>
       <p class="plate__latin" id="fl-latin">Chrysanthemum indicum</p>
       <p class="plate__line" id="fl-line">Golden petals unfurling in hot water, a small sun in your cup.</p>
@@ -183,7 +166,7 @@
           <div class="phscroll">
             <p class="ph__meta">Tuesday, the fourteenth of April</p>
             <p class="ph__kick">Tonight&rsquo;s flower</p>
-            <div class="minibloom" data-petal="#E8A5B5" data-core="#8B4A5A" aria-hidden="true"><div class="core"></div></div>
+            <div class="minidraw"><img src="/assets/img/florilegium/draw/peony.png" alt="" width="1376" height="768"></div>
             <p class="ph__name">Peony</p>
             <p class="ph__latin">Paeonia officinalis</p>
             <p class="ph__line">All that ruffled abundance, holding its breath.</p>
@@ -266,31 +249,26 @@
         }
       }
     }
-    var bloom = document.getElementById('bloom');
-    buildPetals(bloom, 11);
-    document.querySelectorAll('.minibloom').forEach(function (mb) {
-      buildPetals(mb, 10);
-      mb.style.setProperty('--petal', mb.dataset.petal);
-      mb.style.setProperty('--core', mb.dataset.core);
-    });
-
     var flowers = [
-      { name: 'Chrysanthemum', latin: 'Chrysanthemum indicum', petal: '#E9C67A', core: '#5C3A22', line: 'Golden petals unfurling in hot water, a small sun in your cup.', mean: 'Truth, and a heart that keeps its own counsel.' },
-      { name: 'Peony', latin: 'Paeonia officinalis', petal: '#E8A5B5', core: '#8B4A5A', line: 'All that ruffled abundance, holding its breath.', mean: 'Bashful, and quietly wishing you a happy life.' },
-      { name: 'Marigold', latin: 'Tagetes erecta', petal: '#E8862E', core: '#8B4A1A', line: 'The flower the departed are said to follow home.', mean: 'Grief worn openly, and the warmth that outlasts it.' },
-      { name: 'Foxglove', latin: 'Digitalis purpurea', petal: '#B07AA6', core: '#5C2B4E', line: 'A staircase of bells only the bees are asked to climb.', mean: 'A beautiful warning. Admire, do not swallow.' },
-      { name: 'Anemone', latin: 'Anemone coronaria', petal: '#C97A8A', core: '#3A2B33', line: 'First to open when the wind turns, first to let go.', mean: 'Forsaken, and fragile with anticipation.' }
+      { img: 'chrysanthemum', name: 'Chrysanthemum', latin: 'Chrysanthemum indicum', line: 'Golden petals unfurling in hot water, a small sun in your cup.', mean: 'Truth, and a heart that keeps its own counsel.' },
+      { img: 'peony', name: 'Peony', latin: 'Paeonia officinalis', line: 'All that ruffled abundance, holding its breath.', mean: 'Bashful, and quietly wishing you a happy life.' },
+      { img: 'ranunculus', name: 'Ranunculus', latin: 'Ranunculus asiaticus', line: 'A hundred tissue-paper petals, and every one certain.', mean: 'You are dazzling, and I am dazzled.' },
+      { img: 'poppy', name: 'Poppy', latin: 'Papaver rhoeas', line: 'Red as a held breath, and gone by the afternoon.', mean: 'Consolation, and permission to rest.' },
+      { img: 'sweet-pea', name: 'Sweet pea', latin: 'Lathyrus odoratus', line: 'Climbing toward the light and smelling of goodbye.', mean: 'A fond farewell, and thanks for the time.' },
+      { img: 'camellia', name: 'Camellia', latin: 'Camellia japonica', line: 'Waxed and formal, the flower that keeps its composure.', mean: 'Admiration, and my fate in your hands.' }
     ];
-    var name = document.getElementById('fl-name'), latin = document.getElementById('fl-latin'),
+    var img = document.getElementById('fl-img'),
+        name = document.getElementById('fl-name'), latin = document.getElementById('fl-latin'),
         line = document.getElementById('fl-line'), mean = document.getElementById('fl-mean');
     var i = 0;
     document.getElementById('fl-next').addEventListener('click', function () {
       i = (i + 1) % flowers.length; var f = flowers[i];
-      bloom.style.setProperty('--petal', f.petal); bloom.style.setProperty('--core', f.core);
-      [ [name, f.name], [latin, f.latin], [line, f.line], [mean, f.mean] ].forEach(function (pair) {
-        pair[0].textContent = pair[1];
-        if (!reduce) pair[0].animate([{ opacity: 0 }, { opacity: 1 }], { duration: 420, easing: 'ease' });
-      });
+      img.src = '/assets/img/florilegium/draw/' + f.img + '.png';
+      name.textContent = f.name; latin.textContent = f.latin; line.textContent = f.line; mean.textContent = f.mean;
+      if (!reduce) {
+        img.animate([{ opacity: 0.15 }, { opacity: 1 }], { duration: 520, easing: 'ease' });
+        [name, latin, line, mean].forEach(function (el) { el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 420, easing: 'ease' }); });
+      }
     });
   })();
 </script>
