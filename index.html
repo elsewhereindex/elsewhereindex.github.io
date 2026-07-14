@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elsewhere Index</title>
-<meta name="description" content="A design-and-technology studio. We build our own software, and we take on the work: applied AI, web, and design. Dallas and Paris.">
+<meta name="description" content="A small studio for software and design. Our own apps, mostly. Yours, sometimes. Dallas and Paris.">
 <meta property="og:title" content="Elsewhere Index">
-<meta property="og:description" content="A design-and-technology studio. We build our own software, and we take on the work. Dallas and Paris.">
+<meta property="og:description" content="A small studio for software and design. Our own apps, mostly. Yours, sometimes. Dallas and Paris.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth@8..144,100..1000,25..151&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  @property --wght { syntax: '<number>'; inherits: false; initial-value: 400; }
-  @property --wdth { syntax: '<number>'; inherits: false; initial-value: 100; }
+  @property --wght { syntax: '<number>'; inherits: true; initial-value: 400; }
+  @property --wdth { syntax: '<number>'; inherits: true; initial-value: 100; }
 
   :root {
     --paper: #F0ECE2;
@@ -21,11 +21,11 @@
     --ink: #17140F;
     --accent: #1A22DB;      /* klein-blue ultramarine */
     --shout: #E5431E;       /* vermilion, the one loud field */
-    --hi: #C9F03A;          /* acid-green highlighter, used sparingly */
+    --hi: #C9F03A;          /* acid-green highlighter */
     --quiet: #6B665C;
     --line: rgba(23, 20, 15, 0.14);
     --line-2: rgba(23, 20, 15, 0.30);
-    --bar: 3.1rem;          /* header bar height */
+    --bar: 3.1rem;
     --flex: "Roboto Flex", "Helvetica Neue", Arial, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
   }
@@ -47,14 +47,46 @@
   a { color: inherit; text-decoration: none; }
   img { display: block; max-width: 100%; }
 
-  /* Grain */
-  .grain {
-    position: fixed; inset: 0; z-index: 1; pointer-events: none;
-    opacity: 0.4; mix-blend-mode: multiply;
+  /* Grain (confined to ink fields, not the reading column) */
+  .grainbg { position: relative; }
+  .grainbg::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    opacity: 0.5; mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   }
 
   .wrap { position: relative; z-index: 2; max-width: 78rem; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+
+  /* ============ Registration marks (the proof frame) ============ */
+  .regmark {
+    position: fixed; width: 22px; height: 22px; z-index: 6; pointer-events: none;
+    opacity: 0.35; color: var(--ink); transition: opacity 0.4s ease;
+  }
+  .regmark svg { width: 100%; height: 100%; display: block; }
+  .regmark.tl { top: calc(var(--bar) + 0.9rem); left: 0.9rem; }
+  .regmark.tr { top: calc(var(--bar) + 0.9rem); right: 0.9rem; }
+  .regmark.bl { bottom: 0.9rem; left: 0.9rem; }
+  .regmark.br { bottom: 0.9rem; right: 0.9rem; pointer-events: auto; cursor: pointer; }
+  .regmark.br::after {
+    content: "TOP"; position: absolute; right: 26px; top: 50%; transform: translateY(-50%);
+    font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.16em; color: var(--quiet);
+    opacity: 0; transition: opacity 0.25s ease; white-space: nowrap;
+  }
+  .regmark.br:hover { opacity: 0.9; }
+  .regmark.br:hover::after { opacity: 1; }
+  @media (max-width: 760px) { .regmark { display: none; } }
+
+  /* ============ Call-number rail ============ */
+  .callno {
+    position: fixed; left: 0.55rem; top: 50%; transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl; z-index: 6;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--quiet); text-decoration: none; cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .callno:hover { color: var(--ink); }
+  .callno b { color: var(--accent); font-weight: 500; transition: color 0.4s ease; }
+  @media (max-width: 980px) { .callno { display: none; } }
 
   /* ============ Header bar ============ */
   .bar {
@@ -96,6 +128,7 @@
   .navlink:hover::after, .navlink[aria-expanded="true"]::after { transform: scaleX(1); }
   .navlink .caret { display: inline-block; margin-left: 0.35rem; transition: transform 0.28s ease; }
   .navlink[aria-expanded="true"] .caret { transform: rotate(180deg); }
+  .navlink--icon { font-size: 0.9rem; padding: 0.4rem 0.55rem; }
 
   /* Dropdown */
   .drop { position: relative; }
@@ -146,14 +179,15 @@
     .bar__meta { display: none; }
     .navlink { padding: 0.45rem 0.5rem; font-size: 0.64rem; }
   }
+  @media (max-width: 560px) { .navlink--icon { display: none; } }
 
   /* ============ Masthead ============ */
   .masthead {
     position: relative; min-height: 100vh; min-height: 100svh;
     display: flex; flex-direction: column; justify-content: center;
     padding: calc(var(--bar) + 4rem) 0 4rem;
+    touch-action: pan-y;
   }
-  /* faint editorial baseline grid */
   .masthead::before {
     content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
     background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
@@ -170,31 +204,68 @@
   }
   .eyebrow::before { content: ""; width: 2.2rem; height: 1px; background: var(--line-2); }
 
+  /* Off-register 3-channel wordmark */
   .wordmark {
-    font-family: var(--flex);
-    font-variation-settings: 'wght' var(--wght), 'wdth' var(--wdth), 'opsz' 144;
-    line-height: 0.8;
-    letter-spacing: -0.02em;
+    position: relative; display: inline-block;
+    line-height: 0.8; letter-spacing: -0.02em;
     font-size: clamp(3.4rem, 15vw, 13rem);
     text-transform: uppercase;
+    cursor: grab;
   }
-  .wordmark .l1 { display: block; }
-  .wordmark .l2 { display: block; color: var(--accent); }
+  .wordmark:active { cursor: grabbing; }
+  .wordmark .ch {
+    font-family: var(--flex);
+    font-variation-settings: 'wght' var(--wght, 300), 'wdth' var(--wdth, 140), 'opsz' 144;
+    display: block;
+    transition: transform 0.8s cubic-bezier(.16,.8,.3,1), opacity 0.8s ease;
+  }
+  .wordmark .ch .l1 { display: block; }
+  .wordmark .ch .l2 { display: block; }
+  /* K plate = the real wordmark, in flow */
+  .ch--k { position: relative; z-index: 3; }
+  .ch--k .l1 { color: var(--ink); }
+  .ch--k .l2 { color: var(--accent); }
+  /* colour plates, overlaid, multiply, hidden at register */
+  .ch--c, .ch--m { position: absolute; top: 0; left: 0; mix-blend-mode: multiply; opacity: 0; }
+  .ch--c .l1, .ch--c .l2 { color: var(--accent); }
+  .ch--m .l1, .ch--m .l2 { color: var(--shout); }
+  /* pre-register: plates pulled out of register and visible */
+  .wordmark.proof .ch--c { opacity: 0.9; transform: translate(-0.14em, -0.06em); }
+  .wordmark.proof .ch--m { opacity: 0.9; transform: translate(0.14em, 0.06em); }
+  /* idle smear on hover */
+  .wordmark:hover .ch--c { opacity: 0.55; transform: translate(-0.05em, -0.02em); transition: transform 0.18s ease, opacity 0.18s ease; }
+  .wordmark:hover .ch--m { opacity: 0.55; transform: translate(0.05em, 0.02em); transition: transform 0.18s ease, opacity 0.18s ease; }
+
+  .reg {
+    margin-top: 1.5rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--quiet);
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    opacity: 0; transform: translateY(4px); transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+  }
+  .reg.in { opacity: 1; transform: none; }
+  .reg .tick { color: var(--hi); }
 
   .lede {
-    margin-top: 2rem; max-width: 34ch;
+    margin-top: 1.75rem; max-width: 34ch;
     font-size: clamp(1.15rem, 2.4vw, 1.65rem);
     font-variation-settings: 'wght' 380, 'wdth' 96, 'opsz' 24;
     line-height: 1.34;
   }
   .lede .accent { color: var(--accent); }
 
+  .mast-foot { margin-top: 3rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
   .scrollcue {
-    margin-top: 3.25rem; font-family: var(--mono); font-size: 0.72rem;
+    font-family: var(--mono); font-size: 0.72rem;
     letter-spacing: 0.2em; text-transform: uppercase; color: var(--quiet);
     display: flex; align-items: center; gap: 0.75rem;
   }
   .scrollcue::before { content: ""; width: 2.5rem; height: 1px; background: var(--line-2); }
+  .axis {
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--quiet); white-space: nowrap;
+  }
+  .axis b { color: var(--ink); font-weight: 500; }
+  @media (max-width: 620px) { .axis { display: none; } }
 
   /* ============ Index blocks ============ */
   .block {
@@ -215,120 +286,56 @@
     text-transform: uppercase; color: var(--quiet); margin-bottom: 1.75rem;
   }
 
+  /* heading resolves on the width axis only (no fade/translate) */
   .heading {
     font-family: var(--flex);
-    font-variation-settings: 'wght' var(--wght), 'wdth' var(--wdth), 'opsz' 72;
-    --wght: 300; --wdth: 55;
+    font-variation-settings: 'wght' var(--h-wght), 'wdth' var(--h-wdth), 'opsz' 72;
+    --h-wght: 300; --h-wdth: 58;
     font-size: clamp(2rem, 5.5vw, 4rem);
     line-height: 1.0; text-transform: uppercase; letter-spacing: -0.015em;
-    opacity: 0; transform: translateY(10px);
-    transition: --wght 0.9s ease, --wdth 0.9s ease, opacity 0.9s ease, transform 0.9s ease;
+    transition: --h-wght 0.9s cubic-bezier(.2,.7,.2,1), --h-wdth 0.9s cubic-bezier(.2,.7,.2,1);
   }
-  .heading.in { --wght: 560; --wdth: 108; opacity: 1; transform: none; }
+  .heading.in { --h-wght: 560; --h-wdth: 110; }
 
   .prose { max-width: 44ch; font-size: 1.08rem; line-height: 1.6; }
   .prose.big { max-width: 32ch; font-size: clamp(1.25rem, 3vw, 1.9rem); line-height: 1.32; font-variation-settings: 'wght' 360, 'wdth' 98, 'opsz' 32; }
   .prose + .prose { margin-top: 1rem; }
   .prose .accent { color: var(--accent); }
 
-  /* ============ Apps: featured plates ============ */
-  .plates { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); margin-top: 2.25rem; }
-  @media (max-width: 720px) { .plates { grid-template-columns: minmax(0,1fr); } }
-
-  .plate { display: block; position: relative; }
-  .plate__frame {
-    position: relative; overflow: hidden; border: 1px solid var(--line-2);
-    background: var(--paper-2); aspect-ratio: 599 / 1120;
-  }
-  .plate__frame img {
-    width: 100%; height: 100%; object-fit: cover; object-position: center top;
-    transition: transform 0.9s cubic-bezier(.2,.7,.2,1);
-  }
-  .plate:hover .plate__frame img { transform: scale(1.035); }
-  .plate__figtag {
-    position: absolute; top: 0.7rem; left: 0.7rem; z-index: 2;
-    font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
-    background: var(--ink); color: var(--paper); padding: 0.28rem 0.5rem;
-  }
-  .plate__meta { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-top: 1rem; }
-  .plate__name {
-    font-family: var(--flex); font-variation-settings: 'wght' 580, 'wdth' 96, 'opsz' 40;
-    font-size: clamp(1.5rem, 3.2vw, 2.1rem); line-height: 1; text-transform: uppercase; letter-spacing: -0.01em;
-    transition: --wdth 0.5s ease, color 0.3s ease;
-  }
-  .plate:hover .plate__name { --wdth: 118; color: var(--accent); }
-  .plate__status {
-    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 0.4rem;
-  }
-  .plate__desc { color: var(--quiet); font-size: 0.98rem; margin-top: 0.35rem; max-width: 40ch; }
-  .plate__go {
-    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.6rem;
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
-  }
-  .plate__go .arrow { transition: transform 0.35s ease; }
-  .plate:hover .plate__go .arrow { transform: translate(3px, -3px); }
-
-  /* Apps: compact index for the rest */
-  .subindex { margin-top: 2.75rem; border-top: 1px solid var(--line); }
-  .row {
-    display: grid; grid-template-columns: 4rem minmax(0,1fr) auto;
-    grid-template-areas: "fig name status" "fig desc status";
-    column-gap: 1.5rem; row-gap: 0.3rem; align-items: baseline;
-    padding: 1.5rem 0; border-bottom: 1px solid var(--line);
-  }
-  a.row { cursor: pointer; transition: background 0.2s ease; }
-  a.row:hover { background: var(--paper-2); }
-  a.row:hover .row__name { color: var(--accent); }
-  a.row .row__go { display: inline-block; margin-left: 0.6rem; color: var(--accent); transition: transform 0.35s ease; }
-  a.row:hover .row__go { transform: translateX(4px); }
-  .row__fig { grid-area: fig; font-family: var(--mono); font-size: 0.72rem; color: var(--quiet); padding-top: 0.4rem; }
-  .row__name {
-    grid-area: name; font-family: var(--flex); font-variation-settings: 'wght' 520, 'wdth' 96, 'opsz' 40;
-    font-size: clamp(1.5rem, 3.6vw, 2.2rem); line-height: 1; text-transform: uppercase; letter-spacing: -0.01em;
-  }
-  .row__desc { grid-area: desc; color: var(--quiet); font-size: 0.98rem; margin-top: 0.2rem; }
-  .row__status {
-    grid-area: status; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink); text-align: right; align-self: center; white-space: nowrap;
-    display: inline-flex; align-items: center; gap: 0.4rem;
-  }
-  @media (max-width: 640px) {
-    .block { grid-template-columns: minmax(0,1fr); gap: 0.85rem; }
-    .block__idx { padding-top: 0; }
-    .row { grid-template-columns: 3rem minmax(0,1fr); grid-template-areas: "fig name" "fig desc" "fig status"; }
-    .row__status { text-align: left; align-self: start; padding-top: 0.35rem; }
-  }
-
-  /* ============ Apps: specimen cards (dual action) ============ */
+  /* ============ Apps: specimen cards ============ */
   .specimens { margin-top: 2.5rem; border-top: 1px solid var(--line); }
   .spec {
+    position: relative;
     display: grid; grid-template-columns: clamp(6rem, 20vw, 10.5rem) minmax(0, 1fr);
     gap: clamp(1.25rem, 3.5vw, 2.75rem); align-items: start;
     padding: clamp(1.9rem, 4.5vh, 3rem) 0; border-bottom: 1px solid var(--line);
     transition: background 0.35s ease; margin: 0 calc(-1 * clamp(0.6rem, 2vw, 1.4rem)); padding-inline: clamp(0.6rem, 2vw, 1.4rem);
   }
-  .spec:hover { background: color-mix(in srgb, var(--brand) 7%, transparent); }
+  /* colour-plate rail that inks in on browse */
+  .spec::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--brand); transform: scaleY(0); transform-origin: top;
+    transition: transform 0.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .spec:hover { background: color-mix(in srgb, var(--brand) 8%, transparent); }
+  .spec:hover::before { transform: scaleY(1); }
+  .spec:hover .spec__fig { color: var(--brand); }
   .spec__vis { display: block; overflow: hidden; aspect-ratio: 3 / 4; border-radius: 4px; border: 1px solid var(--line); background: var(--paper-2); position: relative; }
   .spec__vis img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.9s cubic-bezier(.2,.7,.2,1); }
   .spec:hover .spec__vis img { transform: scale(1.05); }
-  .spec__vis--teaser { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; text-align: center; padding: 1rem;
-    background: color-mix(in srgb, var(--brand) 16%, var(--paper)); border-color: color-mix(in srgb, var(--brand) 32%, var(--line)); }
-  .teaser__mark { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--brand); opacity: 0.9; }
-  .teaser__mark.ring { background: none; border: 2px solid var(--brand); }
-  .teaser__word { font-family: var(--flex); font-variation-settings: 'wght' 560, 'wdth' 78, 'opsz' 24; font-size: 1.05rem; line-height: 1; text-transform: uppercase; letter-spacing: 0.01em; color: color-mix(in srgb, var(--brand) 72%, var(--ink)); }
-  .teaser__sub { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in srgb, var(--brand) 55%, var(--quiet)); }
 
   .spec__body { min-width: 0; }
   .spec__top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
     font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--quiet); }
+  .spec__fig { transition: color 0.3s ease; }
   .spec__status { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--ink); white-space: nowrap; }
   .spec__name {
-    font-family: var(--flex); font-variation-settings: 'wght' 560, 'wdth' 104, 'opsz' 60;
+    font-family: var(--flex); font-variation-settings: 'wght' var(--n-wght), 'wdth' var(--n-wdth), 'opsz' 60;
+    --n-wght: 560; --n-wdth: 104;
     font-size: clamp(2rem, 5.2vw, 3.5rem); line-height: 0.98; text-transform: uppercase; letter-spacing: -0.015em;
-    margin: 0.85rem 0 0; transition: color 0.3s ease;
+    margin: 0.85rem 0 0; transition: color 0.3s ease, --n-wdth 0.5s ease;
   }
-  .spec:hover .spec__name { color: var(--brand); }
+  .spec:hover .spec__name { color: var(--brand); --n-wdth: 118; }
   .spec__hook { margin-top: 0.75rem; max-width: 48ch; font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.45; font-variation-settings: 'wght' 380; color: var(--ink); }
   .spec__acts { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .btn { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase;
@@ -361,11 +368,23 @@
   .svc__desc b { color: var(--ink); font-variation-settings: 'wght' 560; }
   @media (max-width: 640px) { .svc__row { grid-template-columns: minmax(0,1fr); row-gap: 0.5rem; } }
 
+  /* ============ Back-of-book index ============ */
+  .bookindex { list-style: none; margin-top: 2rem; border-top: 1px solid var(--line); }
+  .bookindex li { border-bottom: 1px solid var(--line); }
+  .bookindex li > * { display: flex; align-items: baseline; padding: 0.7rem 0; font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.02em; }
+  .bookindex a { transition: color 0.2s ease; }
+  .bookindex a:hover { color: var(--accent); }
+  .bookindex .term { text-transform: uppercase; letter-spacing: 0.06em; }
+  .bookindex .lead { flex: 1; margin: 0 0.7rem; border-bottom: 1px dotted var(--line-2); transform: translateY(-0.18em); }
+  .bookindex .loc { color: var(--quiet); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.68rem; white-space: nowrap; }
+  .bookindex a:hover .lead { border-bottom-color: var(--accent); }
+
   /* ============ Color break ============ */
   .shout {
     position: relative; z-index: 2; background: var(--shout); color: var(--paper);
     margin-top: clamp(3.5rem, 9vh, 6rem);
     scroll-margin-top: var(--bar);
+    overflow: hidden;
   }
   .shout .wrap { padding-top: clamp(4rem, 11vh, 8rem); padding-bottom: clamp(4rem, 11vh, 8rem); }
   .shout__eyebrow {
@@ -388,7 +407,6 @@
   .shout__cta:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
   .shout__mail { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.82rem; color: rgba(240,236,226,0.85); }
   .shout__mail a { border-bottom: 1px solid rgba(240,236,226,0.5); padding-bottom: 0.1rem; }
-  ::selection { }
   .shout ::selection { background: var(--ink); color: var(--shout); }
 
   /* ============ Colophon ============ */
@@ -400,18 +418,63 @@
   }
   .colophon b { color: var(--ink); font-weight: 500; }
 
+  /* ============ Contact sheet overlay ============ */
+  .sheet {
+    position: fixed; inset: 0; z-index: 60; background: var(--paper);
+    display: flex; flex-direction: column;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s;
+  }
+  .sheet.open { opacity: 1; visibility: visible; }
+  .sheet__bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem clamp(1.25rem, 5vw, 3rem); border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--quiet);
+  }
+  .sheet__bar button { font: inherit; letter-spacing: 0.16em; text-transform: uppercase; background: none; border: 1px solid var(--line-2); color: var(--ink); padding: 0.4rem 0.7rem; cursor: pointer; border-radius: 2px; }
+  .sheet__bar button:hover { background: var(--ink); color: var(--paper); }
+  .sheet__grid {
+    flex: 1; overflow: auto; display: grid; gap: clamp(1rem, 3vw, 2.4rem);
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    padding: clamp(1.5rem, 4vw, 3rem);
+    align-content: start;
+  }
+  .frame { position: relative; display: block; }
+  .frame__img { position: relative; overflow: hidden; aspect-ratio: 3 / 4; background: var(--paper-2); border: 1px solid var(--line); }
+  .frame__img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: saturate(1.02); transition: transform 0.6s ease; }
+  .frame:hover .frame__img img { transform: scale(1.04); }
+  /* grease-pencil crop marks */
+  .frame__img::before, .frame__img::after {
+    content: ""; position: absolute; width: 12px; height: 12px; z-index: 2; pointer-events: none;
+    border: 0 solid var(--shout);
+  }
+  .frame__img::before { top: 5px; left: 5px; border-top-width: 2px; border-left-width: 2px; }
+  .frame__img::after { bottom: 5px; right: 5px; border-bottom-width: 2px; border-right-width: 2px; }
+  .frame__cap { display: flex; justify-content: space-between; margin-top: 0.5rem;
+    font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--quiet); }
+  .frame__cap b { color: var(--ink); font-weight: 500; }
+  .frame:hover .frame__cap b { color: var(--accent); }
+
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .heading { transition: opacity 0.4s ease; --wght: 520; --wdth: 104; }
-    .plate__frame img, .plate__name, .navlink::after, .plate__go .arrow, .shout__cta { transition: none; }
+    .heading { transition: none; --h-wght: 520; --h-wdth: 104; }
+    .wordmark .ch { transition: opacity 0.3s ease; }
+    .spec__vis img, .spec__name, .navlink::after, .btn, .shout__cta, .frame__img img { transition: none; }
+    .wordmark.proof .ch--c, .wordmark.proof .ch--m { transform: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="grain" aria-hidden="true"></div>
+<!-- registration marks -->
+<div class="regmark tl" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1"><circle cx="10" cy="10" r="5.5"/><path d="M10 0v6M10 14v6M0 10h6M14 10h6"/></svg></div>
+<div class="regmark tr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1"><circle cx="10" cy="10" r="5.5"/><path d="M10 0v6M10 14v6M0 10h6M14 10h6"/></svg></div>
+<div class="regmark bl" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1"><circle cx="10" cy="10" r="5.5"/><path d="M10 0v6M10 14v6M0 10h6M14 10h6"/></svg></div>
+<a class="regmark br" id="toTop" href="#top" aria-label="Back to top"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1"><circle cx="10" cy="10" r="5.5"/><path d="M10 0v6M10 14v6M0 10h6M14 10h6"/></svg></a>
+
+<!-- call-number rail -->
+<a class="callno" id="callno" href="#top">EI &middot; <b id="callnoNum">00</b>/06 &middot; <span id="callnoName">Cover</span></a>
 
 <!-- ============ Header bar ============ -->
 <header class="bar">
@@ -464,27 +527,33 @@
       </div>
       <a href="#studio" class="navlink">Studio</a>
       <a href="#contact" class="navlink">Contact</a>
+      <button class="navlink navlink--icon" id="sheetBtn" title="Contact sheet (c)" aria-label="Open contact sheet">&#9638;</button>
     </nav>
   </div>
 </header>
 
 <!-- ============ Masthead ============ -->
-<section class="masthead" id="top">
+<section class="masthead" id="top" data-nav="Cover">
   <div class="wrap">
-    <p class="eyebrow">Elsewhere Index &middot; Dallas / Paris</p>
-    <h1 class="wordmark" id="wordmark">
-      <span class="l1">Elsewhere</span>
-      <span class="l2">Index</span>
+    <p class="eyebrow">Fig. 00 &middot; Elsewhere Index</p>
+    <h1 class="wordmark" id="wordmark" aria-label="Elsewhere Index">
+      <span class="ch ch--c" aria-hidden="true"><span class="l1">Elsewhere</span><span class="l2">Index</span></span>
+      <span class="ch ch--m" aria-hidden="true"><span class="l1">Elsewhere</span><span class="l2">Index</span></span>
+      <span class="ch ch--k" aria-hidden="true"><span class="l1">Elsewhere</span><span class="l2">Index</span></span>
     </h1>
+    <p class="reg" id="regline"><span class="tick">&#9642;</span> Registered &middot; EI-2026 &middot; Dallas / Paris</p>
     <p class="lede">A small studio for <span class="accent">software and design.</span> Our own apps, mostly. Yours, sometimes.</p>
-    <p class="scrollcue">The work, below</p>
+    <div class="mast-foot">
+      <p class="scrollcue">The work, below</p>
+      <p class="axis" id="axis" aria-hidden="true">wdth <b>140</b> &middot; wght <b>300</b> &middot; opsz 144</p>
+    </div>
   </div>
 </section>
 
 <main class="wrap">
 
   <!-- 00 About -->
-  <section class="block">
+  <section class="block" data-nav="About">
     <div class="block__idx">00</div>
     <div class="block__body">
       <p class="kicker">About</p>
@@ -493,7 +562,7 @@
   </section>
 
   <!-- 01 Apps -->
-  <section class="block" id="apps">
+  <section class="block" id="apps" data-nav="Catalog">
     <div class="block__idx">01</div>
     <div class="block__body">
       <p class="kicker">The catalog</p>
@@ -506,7 +575,7 @@
             <img src="assets/img/dear-01.jpg" width="599" height="1299" loading="lazy" alt="The Dear app showing a daily nudge to reach out to a contact.">
           </a>
           <div class="spec__body">
-            <div class="spec__top"><span>Fig. 01</span><span class="spec__status"><span class="dot live"></span>Live &middot; iOS &amp; Android</span></div>
+            <div class="spec__top"><span class="spec__fig">Fig. 01</span><span class="spec__status"><span class="dot live"></span>Live &middot; iOS &amp; Android</span></div>
             <h3 class="spec__name">Dear</h3>
             <p class="spec__hook">One person a day, surfaced before you forget them. Text, call, done. The app keeps the thread so you can just say hello.</p>
             <div class="spec__acts">
@@ -522,7 +591,7 @@
             <img src="assets/img/ttf-gallery.jpg" width="598" height="1299" loading="lazy" alt="Twelve Thirty Four showing a florist arrangement in the gallery.">
           </a>
           <div class="spec__body">
-            <div class="spec__top"><span>Fig. 02</span><span class="spec__status"><span class="dot live"></span>Live &middot; App Store</span></div>
+            <div class="spec__top"><span class="spec__fig">Fig. 02</span><span class="spec__status"><span class="dot live"></span>Live &middot; App Store</span></div>
             <h3 class="spec__name">Twelve Thirty Four</h3>
             <p class="spec__hook">A working flower shop, in your pocket. Ordering, gifting, occasions, and standing orders, for the shop and the customer at once.</p>
             <div class="spec__acts">
@@ -537,7 +606,7 @@
             <img src="assets/img/florilegium/flowers.jpg" width="396" height="478" loading="lazy" alt="Garden roses and ranunculus, the kind of flower Florilegium catalogs.">
           </a>
           <div class="spec__body">
-            <div class="spec__top"><span>Fig. 03</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
+            <div class="spec__top"><span class="spec__fig">Fig. 03</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
             <h3 class="spec__name">Florilegium</h3>
             <p class="spec__hook">One flower a night. Its name, its story, and the small thing it was always trying to tell you. A companion to Twelve Thirty Four.</p>
             <div class="spec__acts">
@@ -551,7 +620,7 @@
             <img src="assets/img/whim/10-free-will-maxxing.jpg" width="900" height="1951" loading="lazy" alt="Whim: free will maxxing.">
           </a>
           <div class="spec__body">
-            <div class="spec__top"><span>Fig. 04</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
+            <div class="spec__top"><span class="spec__fig">Fig. 04</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
             <h3 class="spec__name">Whim</h3>
             <p class="spec__hook">Every day, one slightly unhinged thing to do. Get outside, make something, say the thing. Then you close the app. Free will, maxxed.</p>
             <div class="spec__acts">
@@ -565,7 +634,7 @@
             <img src="assets/img/early/board.png" width="804" height="1748" loading="lazy" alt="Early's board of properties, each with a ready dot.">
           </a>
           <div class="spec__body">
-            <div class="spec__top"><span>Fig. 05</span><span class="spec__status"><span class="dot pilot"></span>In pilot</span></div>
+            <div class="spec__top"><span class="spec__fig">Fig. 05</span><span class="spec__status"><span class="dot pilot"></span>In pilot</span></div>
             <h3 class="spec__name">Early Check-In</h3>
             <p class="spec__hook">Is the place ready for the next guest? Your cleaner taps one button, and a single green dot answers, for the host, the cleaner, and the guest.</p>
             <div class="spec__acts">
@@ -579,7 +648,7 @@
   </section>
 
   <!-- 02 Studio -->
-  <section class="block" id="studio">
+  <section class="block" id="studio" data-nav="Studio">
     <div class="block__idx">02</div>
     <div class="block__body">
       <p class="kicker">The studio</p>
@@ -615,7 +684,7 @@
 </main>
 
 <!-- Color break / contact -->
-<section class="shout" id="contact">
+<section class="shout grainbg" id="contact" data-nav="Contact">
   <div class="wrap">
     <p class="shout__eyebrow">Work with the studio</p>
     <p class="shout__quote">Start with a workflow audit.</p>
@@ -625,64 +694,173 @@
   </div>
 </section>
 
-<div class="wrap">
+<!-- 04 Index -->
+<main class="wrap">
+  <section class="block" id="index" data-nav="Index" style="border-top:none;">
+    <div class="block__idx">04</div>
+    <div class="block__body">
+      <p class="kicker">Index</p>
+      <h2 class="heading">Back of book</h2>
+      <ul class="bookindex">
+        <li><a href="#studio"><span class="term">Applied AI</span><span class="lead"></span><span class="loc">Studio, a</span></a></li>
+        <li><a href="#contact"><span class="term">Contact</span><span class="lead"></span><span class="loc">below</span></a></li>
+        <li><span><span class="term">Dallas / Paris</span><span class="lead"></span><span class="loc">colophon</span></span></li>
+        <li><a href="https://dearnudges.com" target="_blank" rel="noopener"><span class="term">Dear</span><span class="lead"></span><span class="loc">Fig. 01 &middot; iOS, Android</span></a></li>
+        <li><a href="/early/"><span class="term">Early Check-In</span><span class="lead"></span><span class="loc">Fig. 05 &middot; in pilot</span></a></li>
+        <li><a href="/florilegium/"><span class="term">Florilegium</span><span class="lead"></span><span class="loc">Fig. 03 &middot; see Twelve Thirty Four</span></a></li>
+        <li><a href="/twelve-thirty-four/"><span class="term">Standing orders</span><span class="lead"></span><span class="loc">Fig. 02</span></a></li>
+        <li><a href="/twelve-thirty-four/"><span class="term">Twelve Thirty Four</span><span class="lead"></span><span class="loc">Fig. 02 &middot; App Store</span></a></li>
+        <li><a href="/whim/"><span class="term">Whim</span><span class="lead"></span><span class="loc">Fig. 04 &middot; free will</span></a></li>
+        <li><a href="#contact"><span class="term">Workflow audit</span><span class="lead"></span><span class="loc">Studio</span></a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer class="colophon">
     <span><b>Elsewhere Index LLC</b></span>
     <span>Dallas / Paris</span>
     <span>Software, AI &amp; Design</span>
     <span>&copy; 2026</span>
   </footer>
+</main>
+
+<!-- Contact sheet overlay -->
+<div class="sheet" id="sheet" aria-hidden="true">
+  <div class="sheet__bar">
+    <span>Contact sheet &middot; EI-2026 &middot; 05 selects</span>
+    <button id="sheetClose" type="button">&times; Close</button>
+  </div>
+  <div class="sheet__grid">
+    <a class="frame" href="https://dearnudges.com" target="_blank" rel="noopener">
+      <span class="frame__img"><img src="assets/img/dear-01.jpg" loading="lazy" alt="Dear"></span>
+      <span class="frame__cap"><span>[ 01 ]</span><b>Dear</b></span>
+    </a>
+    <a class="frame" href="/twelve-thirty-four/">
+      <span class="frame__img"><img src="assets/img/ttf-gallery.jpg" loading="lazy" alt="Twelve Thirty Four"></span>
+      <span class="frame__cap"><span>[ 02 ]</span><b>Twelve Thirty Four</b></span>
+    </a>
+    <a class="frame" href="/florilegium/">
+      <span class="frame__img"><img src="assets/img/florilegium/flowers.jpg" loading="lazy" alt="Florilegium"></span>
+      <span class="frame__cap"><span>[ 03 ]</span><b>Florilegium</b></span>
+    </a>
+    <a class="frame" href="/whim/">
+      <span class="frame__img"><img src="assets/img/whim/10-free-will-maxxing.jpg" loading="lazy" alt="Whim"></span>
+      <span class="frame__cap"><span>[ 04 ]</span><b>Whim</b></span>
+    </a>
+    <a class="frame" href="/early/">
+      <span class="frame__img"><img src="assets/img/early/board.png" loading="lazy" alt="Early Check-In"></span>
+      <span class="frame__cap"><span>[ 05 ]</span><b>Early Check-In</b></span>
+    </a>
+  </div>
 </div>
 
 <script>
   (function () {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    /* Kinetic wordmark: width/weight morph with scroll over the masthead. */
     var wordmark = document.getElementById('wordmark');
     var mast = document.querySelector('.masthead');
+    var axisEl = document.getElementById('axis');
+
+    /* ---- axis state (scroll + drag drive the same variable-font props) ---- */
+    var curW = 140, curG = 300, dragging = false;
+    function setAxes(wdth, wght) {
+      curW = wdth; curG = wght;
+      wordmark.style.setProperty('--wdth', wdth.toFixed(1));
+      wordmark.style.setProperty('--wght', wght.toFixed(0));
+      if (axisEl) axisEl.innerHTML = 'wdth <b>' + wdth.toFixed(0) + '</b> &middot; wght <b>' + wght.toFixed(0) + '</b> &middot; opsz 144';
+    }
+
     var ticking = false;
     function onScroll() {
-      if (ticking) return;
+      if (ticking || dragging) return;
       ticking = true;
       requestAnimationFrame(function () {
         var h = mast.offsetHeight || window.innerHeight;
         var p = Math.min(1, Math.max(0, window.scrollY / h));
-        var wdth = 140 - p * 78;   // 140 -> 62
-        var wght = 300 + p * 480;  // 300 -> 780
-        wordmark.style.setProperty('--wdth', wdth.toFixed(1));
-        wordmark.style.setProperty('--wght', wght.toFixed(0));
+        setAxes(140 - p * 78, 300 + p * 480);
         ticking = false;
       });
     }
+
     if (!reduce) {
-      wordmark.style.setProperty('--wdth', '140');
-      wordmark.style.setProperty('--wght', '300');
+      setAxes(140, 300);
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+      /* the print proof: plates arrive off-register, then lock in */
+      wordmark.classList.add('proof');
+      requestAnimationFrame(function () {
+        setTimeout(function () {
+          wordmark.classList.remove('proof');
+          document.getElementById('regline').classList.add('in');
+        }, 260);
+      });
     } else {
-      wordmark.style.setProperty('--wdth', '112');
-      wordmark.style.setProperty('--wght', '440');
+      setAxes(112, 440);
+      document.getElementById('regline').classList.add('in');
     }
 
-    /* Headings + plates stretch/fade in on reveal. */
+    /* ---- type-specimen toy: drag the wordmark to set the axes ---- */
+    if (!reduce && window.matchMedia('(pointer: fine)').matches) {
+      var applyDrag = function (e) {
+        var r = mast.getBoundingClientRect();
+        var xf = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+        var yf = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+        setAxes(40 + xf * 111, 900 - yf * 800);
+      };
+      wordmark.addEventListener('pointerdown', function (e) {
+        dragging = true;
+        try { wordmark.setPointerCapture(e.pointerId); } catch (err) {}
+        applyDrag(e); e.preventDefault();
+      });
+      wordmark.addEventListener('pointermove', function (e) { if (dragging) applyDrag(e); });
+      window.addEventListener('pointerup', function () { if (dragging) { dragging = false; onScroll(); } });
+    }
+
+    /* ---- headings resolve on the width axis when they enter ---- */
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.35 });
     document.querySelectorAll('.heading').forEach(function (h) { io.observe(h); });
 
-    /* Apps dropdown: hover on desktop, click/tap everywhere, Esc to close. */
+    /* ---- call-number rail ---- */
+    var numEl = document.getElementById('callnoNum');
+    var nameEl = document.getElementById('callnoName');
+    var secs = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+    var total = String(secs.length).padStart(2, '0');
+    document.getElementById('callno').innerHTML = 'EI &middot; <b id="callnoNum">00</b>/' + total + ' &middot; <span id="callnoName">Cover</span>';
+    numEl = document.getElementById('callnoNum'); nameEl = document.getElementById('callnoName');
+    var railIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          var i = secs.indexOf(e.target);
+          numEl.textContent = String(i).padStart(2, '0');
+          nameEl.textContent = e.target.getAttribute('data-nav');
+        }
+      });
+    }, { threshold: 0.01, rootMargin: '-45% 0px -45% 0px' });
+    secs.forEach(function (s) { railIO.observe(s); });
+
+    /* ---- apps dropdown ---- */
     var btn = document.getElementById('appsBtn');
     var panel = document.getElementById('appsPanel');
     var drop = btn.parentElement;
-    var hover = window.matchMedia('(hover: hover)').matches;
-    function open() { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
-    function close() { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
-    function toggle() { panel.classList.contains('open') ? close() : open(); }
+    function openMenu() { panel.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+    function closeMenu() { panel.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); panel.classList.contains('open') ? closeMenu() : openMenu(); });
+    document.addEventListener('click', function (e) { if (!drop.contains(e.target)) closeMenu(); });
 
-    btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(); });
-    document.addEventListener('click', function (e) { if (!drop.contains(e.target)) close(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    /* ---- contact sheet ---- */
+    var sheet = document.getElementById('sheet');
+    function openSheet() { sheet.classList.add('open'); sheet.setAttribute('aria-hidden', 'false'); }
+    function closeSheet() { sheet.classList.remove('open'); sheet.setAttribute('aria-hidden', 'true'); }
+    document.getElementById('sheetBtn').addEventListener('click', function () { sheet.classList.contains('open') ? closeSheet() : openSheet(); });
+    document.getElementById('sheetClose').addEventListener('click', closeSheet);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeSheet(); closeMenu(); }
+      if ((e.key === 'c' || e.key === 'C') && !/input|textarea/i.test((e.target.tagName || ''))) {
+        sheet.classList.contains('open') ? closeSheet() : openSheet();
+      }
+    });
   })();
 </script>
 
