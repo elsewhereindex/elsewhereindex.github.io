@@ -180,6 +180,9 @@
     .navlink { padding: 0.45rem 0.5rem; font-size: 0.64rem; }
   }
   @media (max-width: 560px) { .navlink--icon { display: none; } }
+  @media (max-width: 620px) {
+    .drop__panel { position: fixed; top: calc(var(--bar) + 0.4rem); left: 0.5rem; right: 0.5rem; width: auto; }
+  }
 
   /* ============ Masthead ============ */
   .masthead {
@@ -187,7 +190,9 @@
     display: flex; flex-direction: column; justify-content: center;
     padding: calc(var(--bar) + 4rem) 0 4rem;
     touch-action: pan-y;
+    overflow-x: clip;
   }
+  .masthead .wrap { min-width: 0; }
   .masthead::before {
     content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
     background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
@@ -603,7 +608,7 @@
 
         <article class="spec" style="--brand:#8B4A5A">
           <a class="spec__vis" href="/florilegium/" aria-label="Florilegium">
-            <img src="assets/img/florilegium/flowers.jpg" width="396" height="478" loading="lazy" alt="Garden roses and ranunculus, the kind of flower Florilegium catalogs.">
+            <img src="assets/img/florilegium/drawing.png" width="540" height="720" loading="lazy" alt="A botanical drawing of a garden rose from Florilegium.">
           </a>
           <div class="spec__body">
             <div class="spec__top"><span class="spec__fig">Fig. 03</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
@@ -617,7 +622,7 @@
 
         <article class="spec" style="--brand:#FF5A1F">
           <a class="spec__vis" href="/whim/" aria-label="Whim">
-            <img src="assets/img/whim/10-free-will-maxxing.jpg" width="900" height="1951" loading="lazy" alt="Whim: free will maxxing.">
+            <img src="assets/img/whim/card.jpg" width="238" height="508" loading="lazy" alt="Whim's daily card: I have free will, today I will take a completely different way.">
           </a>
           <div class="spec__body">
             <div class="spec__top"><span class="spec__fig">Fig. 04</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
@@ -740,11 +745,11 @@
       <span class="frame__cap"><span>[ 02 ]</span><b>Twelve Thirty Four</b></span>
     </a>
     <a class="frame" href="/florilegium/">
-      <span class="frame__img"><img src="assets/img/florilegium/flowers.jpg" loading="lazy" alt="Florilegium"></span>
+      <span class="frame__img"><img src="assets/img/florilegium/drawing.png" loading="lazy" alt="Florilegium"></span>
       <span class="frame__cap"><span>[ 03 ]</span><b>Florilegium</b></span>
     </a>
     <a class="frame" href="/whim/">
-      <span class="frame__img"><img src="assets/img/whim/10-free-will-maxxing.jpg" loading="lazy" alt="Whim"></span>
+      <span class="frame__img"><img src="assets/img/whim/card.jpg" loading="lazy" alt="Whim"></span>
       <span class="frame__cap"><span>[ 04 ]</span><b>Whim</b></span>
     </a>
     <a class="frame" href="/early/">
