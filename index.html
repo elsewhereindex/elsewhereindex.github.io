@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth@8..144,100..1000,25..151&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth@8..144,100..1000,25..151&family=IBM+Plex+Mono:wght@400;500;600&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   @property --wght { syntax: '<number>'; inherits: true; initial-value: 400; }
   @property --wdth { syntax: '<number>'; inherits: true; initial-value: 100; }
@@ -312,7 +312,7 @@
   .specimens { margin-top: 2.5rem; border-top: 1px solid var(--line); }
   .spec {
     position: relative;
-    display: grid; grid-template-columns: clamp(6rem, 20vw, 10.5rem) minmax(0, 1fr);
+    display: grid; grid-template-columns: clamp(4.5rem, 15vw, 8.5rem) minmax(0, 1fr);
     gap: clamp(1.25rem, 3.5vw, 2.75rem); align-items: start;
     padding: clamp(1.9rem, 4.5vh, 3rem) 0; border-bottom: 1px solid var(--line);
     transition: background 0.35s ease; margin: 0 calc(-1 * clamp(0.6rem, 2vw, 1.4rem)); padding-inline: clamp(0.6rem, 2vw, 1.4rem);
@@ -326,9 +326,11 @@
   .spec:hover { background: color-mix(in srgb, var(--brand) 8%, transparent); }
   .spec:hover::before { transform: scaleY(1); }
   .spec:hover .spec__fig { color: var(--brand); }
-  .spec__vis { display: block; overflow: hidden; aspect-ratio: 3 / 4; border-radius: 4px; border: 1px solid var(--line); background: var(--paper-2); position: relative; }
-  .spec__vis img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.9s cubic-bezier(.2,.7,.2,1); }
-  .spec:hover .spec__vis img { transform: scale(1.05); }
+  .spec__vis { display: block; overflow: hidden; aspect-ratio: 1 / 1; border-radius: 22.4%; border: 1px solid var(--line);
+    background: var(--paper-2); position: relative; box-shadow: 0 10px 22px -10px rgba(23,20,15,0.35); transition: transform 0.4s cubic-bezier(.2,.7,.2,1); }
+  .spec__vis img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(.2,.7,.2,1); }
+  .spec:hover .spec__vis { transform: translateY(-3px); box-shadow: 0 16px 30px -12px rgba(23,20,15,0.4); }
+  .spec:hover .spec__vis img { transform: scale(1.03); }
 
   .spec__body { min-width: 0; }
   .spec__top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.35rem 1rem;
@@ -337,12 +339,11 @@
   .spec__fig { transition: color 0.3s ease; }
   .spec__status { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--ink); }
   .spec__name {
-    font-family: var(--flex); font-variation-settings: 'wght' var(--n-wght), 'wdth' var(--n-wdth), 'opsz' 60;
-    --n-wght: 560; --n-wdth: 104;
-    font-size: clamp(2rem, 5.2vw, 3.5rem); line-height: 0.98; text-transform: uppercase; letter-spacing: -0.015em;
-    margin: 0.85rem 0 0; transition: color 0.3s ease, --n-wdth 0.5s ease;
+    font-family: "Chakra Petch", var(--flex); font-weight: 600;
+    font-size: clamp(1.9rem, 4.7vw, 3rem); line-height: 1.02; text-transform: uppercase; letter-spacing: 0.005em;
+    margin: 0.85rem 0 0; transition: color 0.3s ease;
   }
-  .spec:hover .spec__name { color: var(--brand); --n-wdth: 118; }
+  .spec:hover .spec__name { color: var(--brand); }
   .spec__hook { margin-top: 0.75rem; max-width: 48ch; font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.45; font-variation-settings: 'wght' 380; color: var(--ink); }
   .spec__acts { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.6rem; }
   .btn { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase;
@@ -357,7 +358,7 @@
 
   @media (max-width: 560px) {
     .spec { grid-template-columns: minmax(0,1fr); gap: 0.9rem; }
-    .spec__vis { width: 44%; max-width: 9rem; }
+    .spec__vis { width: 5.5rem; }
     .spec__name { margin-top: 0.4rem; }
   }
   .spec__name { overflow-wrap: break-word; }
@@ -391,7 +392,7 @@
 
   /* ============ Color break ============ */
   .shout {
-    position: relative; z-index: 2; background: var(--shout); color: var(--paper);
+    position: relative; z-index: 2; background: var(--accent); color: var(--paper);
     margin-top: clamp(3.5rem, 9vh, 6rem);
     scroll-margin-top: var(--bar);
     overflow: hidden;
@@ -409,15 +410,15 @@
   .shout__sub { margin-top: 1.75rem; max-width: 46ch; font-size: 1.1rem; line-height: 1.5; color: rgba(240,236,226,0.9); }
   .shout__cta {
     display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 2.25rem;
-    background: var(--hi); color: var(--ink);
+    background: var(--paper); color: var(--ink);
     font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 0.85rem 1.15rem; border: 1px solid var(--ink);
+    padding: 0.85rem 1.15rem; border: 1px solid var(--paper);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .shout__cta:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--ink); }
+  .shout__cta:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 rgba(23,20,15,0.35); }
   .shout__mail { margin-top: 1.4rem; font-family: var(--mono); font-size: 0.82rem; color: rgba(240,236,226,0.85); }
   .shout__mail a { border-bottom: 1px solid rgba(240,236,226,0.5); padding-bottom: 0.1rem; }
-  .shout ::selection { background: var(--ink); color: var(--shout); }
+  .shout ::selection { background: var(--paper); color: var(--accent); }
 
   /* ============ Colophon ============ */
   .colophon {
@@ -582,7 +583,7 @@
 
         <article class="spec" style="--brand:#5A67C8">
           <a class="spec__vis" href="https://dearnudges.com" target="_blank" rel="noopener" aria-label="Dear">
-            <img src="assets/img/dear-01.jpg" width="599" height="1299" loading="lazy" alt="The Dear app showing a daily nudge to reach out to a contact.">
+            <img src="assets/img/icons/dear.png" width="1024" height="1024" loading="lazy" alt="Dear app icon, a deer's head.">
           </a>
           <div class="spec__body">
             <div class="spec__top"><span class="spec__fig">Fig. 01</span><span class="spec__status"><span class="dot live"></span>Live &middot; iOS &amp; Android</span></div>
@@ -597,28 +598,28 @@
         </article>
 
         <article class="spec" style="--brand:#A8446A">
-          <a class="spec__vis" href="/twelve-thirty-four/" aria-label="Twelve Thirty Four">
-            <img src="assets/img/ttf-gallery.jpg" width="598" height="1299" loading="lazy" alt="Twelve Thirty Four showing a florist arrangement in the gallery.">
+          <a class="spec__vis" href="https://twelvethirtyfourflowers.com" target="_blank" rel="noopener" aria-label="Twelve Thirty Four">
+            <img src="assets/img/icons/ttf.png" width="1024" height="1024" loading="lazy" alt="Twelve Thirty Four app icon.">
           </a>
           <div class="spec__body">
             <div class="spec__top"><span class="spec__fig">Fig. 02</span><span class="spec__status"><span class="dot live"></span>Live &middot; App Store</span></div>
             <h3 class="spec__name">Twelve Thirty Four</h3>
-            <p class="spec__hook">A working flower shop, in your pocket. Ordering, gifting, occasions, and standing orders, for the shop and the customer at once.</p>
+            <p class="spec__hook">A working flower shop, in your pocket. Ordering, gifting, and standing orders, all in one place.</p>
             <div class="spec__acts">
               <a class="btn btn--dl" href="https://apps.apple.com/us/app/twelve-thirty-four/id6761194006" target="_blank" rel="noopener">&#8595; App Store</a>
-              <a class="btn btn--page" href="/twelve-thirty-four/">See the page <span class="a" aria-hidden="true">&rarr;</span></a>
+              <a class="btn btn--page" href="https://twelvethirtyfourflowers.com" target="_blank" rel="noopener">Visit Twelve Thirty Four <span class="a" aria-hidden="true">&rarr;</span></a>
             </div>
           </div>
         </article>
 
         <article class="spec" style="--brand:#8B4A5A">
           <a class="spec__vis" href="/florilegium/" aria-label="Florilegium">
-            <img src="assets/img/florilegium/drawing.png" width="540" height="720" loading="lazy" alt="A botanical drawing of a garden rose from Florilegium.">
+            <img src="assets/img/icons/florilegium.png" width="1024" height="1024" loading="lazy" alt="Florilegium app icon, a camellia.">
           </a>
           <div class="spec__body">
             <div class="spec__top"><span class="spec__fig">Fig. 03</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
             <h3 class="spec__name">Florilegium</h3>
-            <p class="spec__hook">One flower a night. Its name, its story, and the small thing it was always trying to tell you. A companion to Twelve Thirty Four.</p>
+            <p class="spec__hook">A field guide to flowers and what they mean. By Twelve Thirty Four.</p>
             <div class="spec__acts">
               <a class="btn btn--page" href="/florilegium/">See the page <span class="a" aria-hidden="true">&rarr;</span></a>
             </div>
@@ -627,7 +628,7 @@
 
         <article class="spec" style="--brand:#FF5A1F">
           <a class="spec__vis" href="/whim/" aria-label="Whim">
-            <img src="assets/img/whim/card.jpg" width="238" height="508" loading="lazy" alt="Whim's daily card: I have free will, today I will take a completely different way.">
+            <img src="assets/img/icons/whim.png" width="1024" height="1024" loading="lazy" alt="Whim app icon.">
           </a>
           <div class="spec__body">
             <div class="spec__top"><span class="spec__fig">Fig. 04</span><span class="spec__status"><span class="dot soon"></span>Coming soon</span></div>
@@ -641,7 +642,7 @@
 
         <article class="spec" style="--brand:#2EB86C">
           <a class="spec__vis" href="/early/" aria-label="Early Check-In">
-            <img src="assets/img/early/board.png" width="804" height="1748" loading="lazy" alt="Early's board of properties, each with a ready dot.">
+            <img src="assets/img/icons/early.png" width="1024" height="1024" loading="lazy" alt="Early app icon.">
           </a>
           <div class="spec__body">
             <div class="spec__top"><span class="spec__fig">Fig. 05</span><span class="spec__status"><span class="dot pilot"></span>In pilot</span></div>
@@ -699,8 +700,8 @@
     <p class="shout__eyebrow">Work with the studio</p>
     <p class="shout__quote">Start with a workflow audit.</p>
     <p class="shout__sub">Tell us where the day gets stuck. We find the two or three tasks worth handing to Claude, set it up, and write the skills so it fits how your team already works.</p>
-    <a class="shout__cta" href="mailto:earl@dearnudges.com">Get in touch <span aria-hidden="true">&rarr;</span></a>
-    <p class="shout__mail"><a href="mailto:earl@dearnudges.com">earl@dearnudges.com</a></p>
+    <a class="shout__cta" href="mailto:support@dearnudges.com">Get in touch <span aria-hidden="true">&rarr;</span></a>
+    <p class="shout__mail"><a href="mailto:support@dearnudges.com">support@dearnudges.com</a></p>
   </div>
 </section>
 
