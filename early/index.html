@@ -7,16 +7,14 @@
 <meta name="description" content="Early answers one question at a glance: is each short-term rental ready for the next guest? Turnover status for hosts. In pilot, from Elsewhere Index.">
 <meta property="og:title" content="Early · is it ready for the next guest?">
 <meta property="og:description" content="Your cleaner taps one button. The moment a place is turned over, you see the green dot.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/newsreader-latin-f0c28d.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
   :root {
     --blue: #2EA3F2;
     --blue-dk: #1C7EC0;
     --green: #2EB86C;
     --red: #DB4444;
-    --amber: #E0912E;
     --ink: #14202C;
     --muted: #6B7280;
     --warm: #FBFAF7;
@@ -91,34 +89,6 @@
   .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.8s cubic-bezier(.2,.7,.2,1); }
   .shot:hover img { transform: scale(1.03); }
   .caption { text-align: center; margin-top: 0.85rem; font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--muted); }
-  .phone { border-radius: 30px; padding: 0.7rem; box-shadow: 0 34px 60px -38px rgba(20,32,44,0.5); background: #E7ECEF; }
-  .phscreen { border-radius: 24px; overflow: hidden; aspect-ratio: 300 / 620; display: flex; flex-direction: column; }
-  .phscreen.warm { background: var(--warm); } .phscreen.cool { background: var(--cool); }
-  .phpad { padding: 1.25rem 1.05rem; flex: 1; }
-  .ph__label { font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
-  .ph__wm { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--blue); font-size: 1rem; margin-bottom: 0.8rem; }
-  .ph__wm .pd { color: var(--green); }
-  .prow { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
-  .prow .nm { font-weight: 500; font-size: 0.9rem; }
-  .prow .tm { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-  .st { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
-  .st .d { width: 0.5rem; height: 0.5rem; border-radius: 50%; }
-  .d.green { background: var(--green); } .d.blue { background: var(--blue); } .d.red { background: var(--red); }
-  .st.green { color: var(--green); } .st.blue { color: var(--blue); } .st.red { color: var(--red); }
-  .cleaner { display: flex; flex-direction: column; height: 100%; text-align: center; }
-  .cleaner .head { background: var(--blue); color: #fff; margin: -1.25rem -1.05rem 0; padding: 1.4rem 1.05rem; font-family: var(--serif); font-style: italic; font-weight: 500; }
-  .cleaner .mid { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 1.5rem 0; }
-  .cleaner .place { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; }
-  .cleaner .q { color: var(--muted); font-size: 0.85rem; }
-  .bigbtn { background: var(--green); color: #fff; border-radius: 14px; padding: 1.1rem; font-weight: 600; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-  .bigbtn .d { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #fff; }
-  .langs { font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.9rem; }
-  .guest { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 0.6rem; }
-  .guest .dotbig { width: 2.2rem; height: 2.2rem; border-radius: 50%; background: color-mix(in srgb, var(--green) 18%, #fff); display: grid; place-items: center; }
-  .guest .dotbig i { width: 0.85rem; height: 0.85rem; border-radius: 50%; background: var(--green); display: block; }
-  .guest h3 { font-family: var(--serif); font-weight: 500; font-size: 1.5rem; }
-  .guest p { color: var(--muted); font-size: 0.9rem; max-width: 22ch; }
-  .guest .time { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); }
 
   /* Footer */
   .foot { padding: clamp(3rem, 8vh, 5.5rem) 0 4rem; }
@@ -189,7 +159,7 @@
 
 <footer class="foot">
   <div class="wrap">
-    <p class="foot__big">In pilot, and quietly working.</p>
+    <p class="foot__big">In pilot, and working.</p>
     <span class="status"><span class="dot"></span>Early &middot; In pilot &middot; iOS &amp; web</span>
     <div class="colophon">
       <span>A study by <a href="/">Elsewhere Index</a></span>

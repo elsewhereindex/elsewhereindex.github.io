@@ -6,10 +6,9 @@
 <title>Florilegium · a field guide to flowers</title>
 <meta name="description" content="A field guide to flowers and the old language of what they mean. By Twelve Thirty Four, from Elsewhere Index.">
 <meta property="og:title" content="Florilegium · a field guide to flowers">
-<meta property="og:description" content="Its name, its story, and the small thing it was always trying to tell you.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<meta property="og:description" content="Its name, its meaning, and the old language of flowers.">
+<link rel="preload" href="/assets/fonts/fraunces-latin-63f165.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
   :root {
     --cream: #F7F1E8;
@@ -17,10 +16,6 @@
     --ink: #2B211A;
     --taupe: #8A7F75;
     --plum: #8B4A5A;
-    --blush: #E8A5B5;
-    --blush-bg: #FAEAEF;
-    --sage: #6B7A42;
-    --sage-2: #7A8970;
     --gold: #8B6F3A;
     --gold-lt: #C9A876;
     --line: rgba(43, 33, 26, 0.14);
@@ -59,7 +54,7 @@
   .hero > div { min-width: 0; }
   @media (max-width: 560px) { .ask { font-size: 2.2rem; } }
 
-  /* Bloom (CSS flower) */
+  /* Bloom plate */
   .bloomcard { justify-self: center; width: 100%; max-width: 24rem; min-width: 0; }
   .plate { background: var(--paper); border: 1px solid var(--line); border-radius: 3px;
     box-shadow: 0 30px 60px -34px rgba(43,33,26,0.5); padding: 2rem 2rem 1.75rem; text-align: center; position: relative; overflow: hidden; }
@@ -137,7 +132,7 @@
 <section class="hero wrap">
   <div>
     <p class="eyebrow">Fig. 03 &middot; the language of flowers</p>
-    <h1 class="ask">Do you know what your flowers are <em>trying to say?</em></h1>
+    <h1 class="ask">Do you know what your flowers are <em>saying?</em></h1>
     <p class="lede">A field guide to flowers, and the old language of what they mean. By Twelve Thirty Four.</p>
   </div>
   <div class="bloomcard">
@@ -146,8 +141,8 @@
       <div class="drawwrap"><img id="fl-img" src="/assets/img/florilegium/draw/chrysanthemum.png" alt="" width="1376" height="768"></div>
       <h2 class="plate__name" id="fl-name">Chrysanthemum</h2>
       <p class="plate__latin" id="fl-latin">Chrysanthemum indicum</p>
-      <p class="plate__line" id="fl-line">Golden petals unfurling in hot water, a small sun in your cup.</p>
-      <div class="plate__means"><b>Sent to say</b><span id="fl-mean">Truth, and a heart that keeps its own counsel.</span></div>
+      <p class="plate__line" id="fl-line">Golden petals that open as they steep.</p>
+      <div class="plate__means"><b>Sent to say</b><span id="fl-mean">Truth, and discretion.</span></div>
       <button class="plate__next" id="fl-next" type="button">Another flower <span aria-hidden="true">&#8635;</span></button>
     </div>
   </div>
@@ -157,7 +152,7 @@
 
 <section class="screens">
   <div class="wrap">
-    <h2>A quiet almanac you keep <em>by the bed.</em></h2>
+    <h2>An almanac you keep <em>by the bed.</em></h2>
     <p class="sub">Tonight&rsquo;s flower &middot; the language &middot; wander the garden</p>
     <div class="film">
 
@@ -169,7 +164,7 @@
             <div class="minidraw"><img src="/assets/img/florilegium/draw/peony.png" alt="" width="1376" height="768"></div>
             <p class="ph__name">Peony</p>
             <p class="ph__latin">Paeonia officinalis</p>
-            <p class="ph__line">All that ruffled abundance, holding its breath.</p>
+            <p class="ph__line">Full, ruffled, and slow to open.</p>
           </div>
           <div class="ph__nav"><span class="on">Home</span><span>Language</span><span>Wander</span></div>
         </div>
@@ -217,7 +212,7 @@
 
 <footer class="foot">
   <div class="wrap">
-    <p class="foot__big">Coming, in its own time.</p>
+    <p class="foot__big">Still building it.</p>
     <span class="status"><span class="dot"></span>Florilegium &middot; In development &middot; by Twelve Thirty Four</span>
     <div class="colophon">
       <span>A study by <a href="/">Elsewhere Index</a></span>
@@ -230,32 +225,13 @@
 <script>
   (function () {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function buildPetals(el, n, cls) {
-      var layers = el.querySelectorAll('.layer');
-      if (layers.length) {
-        layers.forEach(function (layer, li) {
-          var offset = li === 1 ? (360 / n) / 2 : 0;
-          for (var i = 0; i < n; i++) {
-            var p = document.createElement('span'); p.className = 'petal';
-            p.style.transform = 'translate(-50%, -4px) rotate(' + (i * (360 / n) + offset) + 'deg)';
-            layer.appendChild(p);
-          }
-        });
-      } else {
-        for (var j = 0; j < n; j++) {
-          var q = document.createElement('span'); q.className = 'petal';
-          q.style.transform = 'translate(-50%, -3px) rotate(' + (j * (360 / n)) + 'deg)';
-          el.insertBefore(q, el.firstChild);
-        }
-      }
-    }
     var flowers = [
-      { img: 'chrysanthemum', name: 'Chrysanthemum', latin: 'Chrysanthemum indicum', line: 'Golden petals unfurling in hot water, a small sun in your cup.', mean: 'Truth, and a heart that keeps its own counsel.' },
-      { img: 'peony', name: 'Peony', latin: 'Paeonia officinalis', line: 'All that ruffled abundance, holding its breath.', mean: 'Bashful, and quietly wishing you a happy life.' },
-      { img: 'ranunculus', name: 'Ranunculus', latin: 'Ranunculus asiaticus', line: 'A hundred tissue-paper petals, and every one certain.', mean: 'You are dazzling, and I am dazzled.' },
-      { img: 'poppy', name: 'Poppy', latin: 'Papaver rhoeas', line: 'Red as a held breath, and gone by the afternoon.', mean: 'Consolation, and permission to rest.' },
-      { img: 'sweet-pea', name: 'Sweet pea', latin: 'Lathyrus odoratus', line: 'Climbing toward the light and smelling of goodbye.', mean: 'A fond farewell, and thanks for the time.' },
-      { img: 'camellia', name: 'Camellia', latin: 'Camellia japonica', line: 'Waxed and formal, the flower that keeps its composure.', mean: 'Admiration, and my fate in your hands.' }
+      { img: 'chrysanthemum', name: 'Chrysanthemum', latin: 'Chrysanthemum indicum', line: 'Golden petals that open as they steep.', mean: 'Truth, and discretion.' },
+      { img: 'peony', name: 'Peony', latin: 'Paeonia officinalis', line: 'Full, ruffled, and slow to open.', mean: 'Bashfulness, and a wish for a happy life.' },
+      { img: 'ranunculus', name: 'Ranunculus', latin: 'Ranunculus asiaticus', line: 'Dozens of thin, tissue-paper petals, tightly layered.', mean: 'You are dazzling.' },
+      { img: 'poppy', name: 'Poppy', latin: 'Papaver rhoeas', line: 'Paper-thin, red, and open for a day.', mean: 'Consolation, and rest.' },
+      { img: 'sweet-pea', name: 'Sweet pea', latin: 'Lathyrus odoratus', line: 'A climbing vine, grown for its scent.', mean: 'A fond farewell, and thanks for the time.' },
+      { img: 'camellia', name: 'Camellia', latin: 'Camellia japonica', line: 'Waxy, formal petals in a tight spiral.', mean: 'Admiration, and my fate in your hands.' }
     ];
     var img = document.getElementById('fl-img'),
         name = document.getElementById('fl-name'), latin = document.getElementById('fl-latin'),
