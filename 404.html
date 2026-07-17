@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not in the index · Elsewhere Index</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  :root {
+    --paper: #F0ECE2; --ink: #17140F; --accent: #1A22DB;
+    --line: rgba(23, 20, 15, 0.14); --quiet: rgba(23, 20, 15, 0.55);
+    --flex: "Roboto Flex", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--flex);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 2rem; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  .box { max-width: 34rem; width: 100%; }
+  .kick { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--quiet); display: flex; align-items: center; gap: 0.8rem; }
+  .kick::before { content: ""; width: 2.5rem; height: 1px; background: var(--line); }
+  .num { font-family: var(--flex); font-weight: 700; font-size: clamp(5rem, 22vw, 12rem);
+    line-height: 0.9; letter-spacing: -0.03em; margin: 1.2rem 0 0.4rem;
+    font-variation-settings: "wght" 700, "wdth" 130, "opsz" 144; }
+  .num b { color: var(--accent); font-weight: inherit; }
+  .say { font-size: clamp(1.1rem, 2.4vw, 1.5rem); max-width: 26ch; line-height: 1.35; }
+  .back { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 2rem;
+    font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+    border-bottom: 1px solid var(--accent); padding-bottom: 0.15rem; text-decoration: none;
+    transition: gap 0.25s ease; }
+  .back:hover { gap: 0.85rem; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <p class="kick">Elsewhere Index &middot; Error 404</p>
+    <p class="num">4<b>0</b>4</p>
+    <p class="say">This page is not in the catalog. It may have been moved, or it never had a call number.</p>
+    <a class="back" href="/">&larr; Back to the cover</a>
+  </div>
+</body>
+</html>

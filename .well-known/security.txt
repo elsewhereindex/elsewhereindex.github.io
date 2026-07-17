@@ -1,0 +1,4 @@
+Contact: mailto:support@dearnudges.com
+Expires: 2027-07-17T00:00:00.000Z
+Canonical: https://elsewhereindex.com/.well-known/security.txt
+Preferred-Languages: en
