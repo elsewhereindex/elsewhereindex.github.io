@@ -49,7 +49,7 @@
 
   ::selection { background: var(--accent); color: var(--paper); }
   a { color: inherit; text-decoration: none; }
-  img { display: block; max-width: 100%; }
+  img { display: block; max-width: 100%; height: auto; }
 
   /* Grain (confined to ink fields, not the reading column) */
   .grainbg { position: relative; }
@@ -548,7 +548,7 @@
           </a>
         </div>
       </div>
-      <a href="#studio" class="navlink">Studio</a>
+      <a href="#studio" class="navlink">Work</a>
       <a href="#contact" class="navlink">Contact</a>
       <button class="navlink navlink--icon" id="sheetBtn" title="Contact sheet (c)" aria-label="Open contact sheet">&#9638;</button>
     </nav>
@@ -565,7 +565,7 @@
       <span class="ch ch--k" aria-hidden="true"><span class="l1">Elsewhere</span><span class="l2">Index</span></span>
     </h1>
     <p class="reg" id="regline"><span class="tick">&#9642;</span> Registered &middot; EI-2026 &middot; Dallas / Paris</p>
-    <p class="lede">A small studio for <span class="accent">software and design.</span> I build my own apps, and take on work for a few others.</p>
+    <p class="lede">A small studio for <span class="accent">software and design.</span> I take on technology work, and I build my own apps.</p>
     <div class="mast-foot">
       <p class="scrollcue">The work, below</p>
       <p class="axis" id="axis" aria-hidden="true">wdth <b>140</b> &middot; wght <b>300</b> &middot; opsz 144</p>
@@ -575,9 +575,43 @@
 
 <main class="wrap">
 
-  <!-- 00 About -->
+  <!-- 01 The work -->
+  <section class="block" id="studio" data-nav="The work">
+    <div class="block__idx">01</div>
+    <div class="block__body">
+      <p class="kicker">The work</p>
+      <h2 class="heading">What I do</h2>
+      <p class="prose" style="margin-top:1.5rem;">Most of it is technology work: turning something slow or manual into something that runs itself.</p>
+
+      <div class="svc">
+        <div class="svc__row">
+          <span class="svc__no">a</span>
+          <div>
+            <div class="svc__name">Technology</div>
+            <p class="svc__desc"><b>Technology consulting.</b> Less admin, fewer manual steps, and someone to call when it breaks.</p>
+          </div>
+        </div>
+        <div class="svc__row">
+          <span class="svc__no">b</span>
+          <div>
+            <div class="svc__name">Web &amp; Design</div>
+            <p class="svc__desc"><b>Sites and product design.</b> You&rsquo;re looking at one.</p>
+          </div>
+        </div>
+        <div class="svc__row">
+          <span class="svc__no">c</span>
+          <div>
+            <div class="svc__name">And what&rsquo;s next</div>
+            <p class="svc__desc"><b>Just ask.</b> I&rsquo;ll say if it&rsquo;s worth building.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 About -->
   <section class="block" data-nav="About">
-    <div class="block__idx">00</div>
+    <div class="block__idx">02</div>
     <div class="block__body">
       <p class="kicker">About</p>
       <div class="bio">
@@ -587,12 +621,12 @@
     </div>
   </section>
 
-  <!-- 01 Apps -->
-  <section class="block" id="apps" data-nav="Catalog">
-    <div class="block__idx">01</div>
+  <!-- 03 Built -->
+  <section class="block" id="apps" data-nav="Portfolio">
+    <div class="block__idx">03</div>
     <div class="block__body">
-      <p class="kicker">The catalog</p>
-      <h2 class="heading">Apps I build</h2>
+      <p class="kicker">Portfolio</p>
+      <h2 class="heading">Apps I&rsquo;ve built</h2>
 
       <div class="specimens">
 
@@ -673,37 +707,17 @@
     </div>
   </section>
 
-  <!-- 02 Studio -->
-  <section class="block" id="studio" data-nav="Studio">
-    <div class="block__idx">02</div>
+  <!-- 04 Contributions -->
+  <section class="block" id="contributions" data-nav="Contributions">
+    <div class="block__idx">04</div>
     <div class="block__body">
-      <p class="kicker">The studio</p>
-      <h2 class="heading">Work for others</h2>
-      <p class="prose" style="margin-top:1.5rem;">The same people who build the apps take on client work.</p>
-
-      <div class="svc">
-        <div class="svc__row">
-          <span class="svc__no">a</span>
-          <div>
-            <div class="svc__name">Technology</div>
-            <p class="svc__desc"><b>Technology consulting for small businesses.</b> Less admin, and someone to call when it breaks.</p>
-          </div>
-        </div>
-        <div class="svc__row">
-          <span class="svc__no">b</span>
-          <div>
-            <div class="svc__name">Web &amp; Design</div>
-            <p class="svc__desc"><b>Sites and product design.</b> You&rsquo;re looking at one.</p>
-          </div>
-        </div>
-        <div class="svc__row">
-          <span class="svc__no">c</span>
-          <div>
-            <div class="svc__name">And what&rsquo;s next</div>
-            <p class="svc__desc"><b>Just ask.</b> I&rsquo;ll say if it&rsquo;s worth building.</p>
-          </div>
-        </div>
-      </div>
+      <p class="kicker">Elsewhere</p>
+      <h2 class="heading">Contributed to</h2>
+      <ul class="bookindex" style="margin-top:1.6rem;">
+        <li><a href="https://www.weforum.org/publications/the-global-cooperation-barometer-2024/" target="_blank" rel="noopener"><span class="term">The Global Cooperation Barometer</span><span class="lead"></span><span class="loc">World Economic Forum</span></a></li>
+        <li><a href="https://www.weforum.org/publications/spotlight-on-nature-case-studies-for-business-transformation-towards-a-nature-positive-future/" target="_blank" rel="noopener"><span class="term">Spotlight on Nature</span><span class="lead"></span><span class="loc">World Economic Forum</span></a></li>
+        <li><a href="https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/how-ceos-can-outcompete-by-building-new-b2c-businesses" target="_blank" rel="noopener"><span class="term">How CEOs can outcompete by building new B2C businesses</span><span class="lead"></span><span class="loc">McKinsey &amp; Company</span></a></li>
+      </ul>
     </div>
   </section>
 
@@ -720,22 +734,23 @@
   </div>
 </section>
 
-<!-- 04 Index -->
+<!-- 05 Index -->
 <main class="wrap">
   <section class="block" id="index" data-nav="Index" style="border-top:none;">
-    <div class="block__idx">04</div>
+    <div class="block__idx">05</div>
     <div class="block__body">
       <p class="kicker">Index</p>
       <h2 class="heading">Back of book</h2>
       <ul class="bookindex">
-        <li><a href="#contact"><span class="term">Audit</span><span class="lead"></span><span class="loc">Studio</span></a></li>
+        <li><a href="#contact"><span class="term">Audit</span><span class="lead"></span><span class="loc">The work</span></a></li>
         <li><a href="#contact"><span class="term">Contact</span><span class="lead"></span><span class="loc">below</span></a></li>
         <li><span><span class="term">Dallas / Paris</span><span class="lead"></span><span class="loc">colophon</span></span></li>
         <li><a href="https://dearnudges.com" target="_blank" rel="noopener"><span class="term">Dear</span><span class="lead"></span><span class="loc">Fig. 01 &middot; iOS, Android</span></a></li>
         <li><a href="/early/"><span class="term">Early Check-In</span><span class="lead"></span><span class="loc">Fig. 05 &middot; in pilot</span></a></li>
         <li><a href="/florilegium/"><span class="term">Florilegium</span><span class="lead"></span><span class="loc">Fig. 03 &middot; see Twelve Thirty Four</span></a></li>
         <li><a href="/twelve-thirty-four/"><span class="term">Standing orders</span><span class="lead"></span><span class="loc">Fig. 02</span></a></li>
-        <li><a href="#studio"><span class="term">Technology</span><span class="lead"></span><span class="loc">Studio, a</span></a></li>
+        <li><a href="#studio"><span class="term">Technology</span><span class="lead"></span><span class="loc">The work, a</span></a></li>
+        <li><a href="#contributions"><span class="term">Publications</span><span class="lead"></span><span class="loc">Contributed to</span></a></li>
         <li><a href="/twelve-thirty-four/"><span class="term">Twelve Thirty Four</span><span class="lead"></span><span class="loc">Fig. 02 &middot; App Store</span></a></li>
         <li><a href="/whim/"><span class="term">Whim</span><span class="lead"></span><span class="loc">Fig. 04 &middot; free will</span></a></li>
       </ul>
