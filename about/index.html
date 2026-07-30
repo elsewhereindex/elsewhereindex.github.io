@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About · Elsewhere Index</title>
+<link rel="canonical" href="https://elsewhereindex.com/about/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Earl Hoover, engineer and ex-consultant. Elsewhere Index is a small studio for software and design. Dallas and Paris.">
+<meta property="og:title" content="About · Elsewhere Index">
+<meta property="og:description" content="Earl Hoover, engineer and ex-consultant. A small studio for software and design.">
+<meta property="og:type" content="profile">
+<link rel="preload" href="/assets/fonts/roboto-flex-latin-3b7182.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-d77319.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  :root {
+    --paper: #F0ECE2;
+    --paper-2: #E9E4D8;
+    --ink: #17140F;
+    --accent: #1A22DB;
+    --quiet: #6B665C;
+    --line: rgba(23, 20, 15, 0.14);
+    --flex: "Roboto Flex", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--flex);
+    font-variation-settings: 'wght' 400, 'wdth' 100, 'opsz' 14;
+    font-size: 1.0625rem; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; height: auto; }
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+
+  .top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 1.6rem 0 3.5rem;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--quiet);
+  }
+  .top a:hover { color: var(--ink); }
+
+  .kicker {
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--quiet); margin-bottom: 1.2rem;
+  }
+
+  .bio { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  .bio__portrait { width: 100%; filter: grayscale(1) contrast(1.04); }
+
+  h1 {
+    font-variation-settings: 'wght' 560, 'wdth' 92, 'opsz' 40;
+    font-size: clamp(1.9rem, 4.4vw, 3rem); line-height: 1.06;
+    letter-spacing: -0.015em; margin-bottom: 1.6rem;
+  }
+  .prose { max-width: 42ch; font-size: 1.08rem; line-height: 1.62; }
+  .prose + .prose { margin-top: 1.1rem; }
+  .prose a { border-bottom: 1px solid var(--line); }
+  .prose a:hover { border-color: var(--ink); }
+
+  .meta {
+    margin-top: 2.6rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--quiet);
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem;
+  }
+  .meta a { border-bottom: 1px solid var(--line); }
+  .meta a:hover { color: var(--ink); border-color: var(--ink); }
+
+  .foot {
+    margin-top: 5rem; padding: 1.6rem 0 3rem; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--quiet);
+    display: flex; flex-wrap: wrap; gap: 0.6rem 2rem;
+  }
+
+  @media (max-width: 720px) {
+    .bio { grid-template-columns: 1fr; }
+    .bio__portrait { max-width: 13rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav class="top">
+    <a href="/">&larr; Elsewhere Index</a>
+    <span>About</span>
+  </nav>
+
+  <p class="kicker">About</p>
+
+  <div class="bio">
+    <img class="bio__portrait" src="/assets/img/earl.jpg" width="900" height="1125" alt="Earl Hoover">
+    <div>
+      <h1>Earl Hoover</h1>
+      <p class="prose">Engineer and ex-consultant. I run Elsewhere Index, a small studio for software and design, from Dallas and Paris.</p>
+      <p class="prose">I spent seven years in energy, running operations in West Africa, and then several at McKinsey. Now I take on technology work and build my own apps.</p>
+      <p class="prose">Business building, AI, and software.</p>
+
+      <div class="meta">
+        <a href="mailto:earl@elsewhereindex.com">earl@elsewhereindex.com</a>
+        <a href="https://www.linkedin.com/in/earl-hoover-17293364/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="/#contributions">Contributed to</a>
+        <a href="/#apps">Portfolio</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>Elsewhere Index LLC</span>
+    <span>Dallas / Paris</span>
+    <span>&copy; 2026</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

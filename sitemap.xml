@@ -11,11 +11,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://elsewhereindex.com/florilegium/</loc>
-    <lastmod>2026-07-17</lastmod>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://elsewhereindex.com/whim/</loc>
     <lastmod>2026-07-17</lastmod>
     <priority>0.7</priority>
@@ -24,5 +19,8 @@
     <loc>https://elsewhereindex.com/early/</loc>
     <lastmod>2026-07-17</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://elsewhereindex.com/about/</loc>
   </url>
 </urlset>
