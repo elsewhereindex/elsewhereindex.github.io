@@ -3,54 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — Whim</title>
+<title>Privacy Policy · Whim</title>
 <meta name="description" content="Whim Privacy Policy. Anonymous accounts, local-first data, no ads, no data sales.">
 <meta name="robots" content="index,follow">
+<link rel="canonical" href="https://elsewhereindex.com/whim/privacy/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-d77319.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
-  :root { --tangerine: #FF5A1F; --ink: #1a1a1a; --soft: #5b5b5b; --hair: #ececec; }
+  /* Same tokens as /whim/. These pages used a generic system-font stylesheet
+     that shared nothing with the product: a reviewer or a user following the
+     privacy link left the brand entirely. */
+  :root {
+    --tang: #FF5A1F;
+    --ink: #0B0B0C;
+    --paper: #FFF7F0;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: var(--ink); background: #fff; line-height: 1.6;
+    background: var(--tang); color: var(--ink);
+    font-family: var(--sans); font-size: 1.0625rem; line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
+  .grain {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    opacity: 0.35; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
   .top {
-    background: var(--tangerine); padding: 22px 24px;
+    position: relative; z-index: 5;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1.4rem clamp(1.25rem, 5vw, 4rem);
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
   }
-  .wordmark {
-    color: #fff; font-weight: 800; font-size: 1.6rem; letter-spacing: -0.02em;
-    text-decoration: none; display: inline-block;
+  .top a { color: var(--paper); text-decoration: none; }
+  .top a:hover { text-decoration: underline; }
+  .wrap {
+    position: relative; z-index: 2; max-width: 46rem; margin: 0 auto;
+    padding: 0 clamp(1.25rem, 5vw, 4rem);
   }
-  .wordmark .dot { display:inline-block; transform: translate(2px,-6px); }
-  .container { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
-  h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 6px; }
-  .eff { color: var(--soft); font-size: 0.9rem; margin-bottom: 28px; }
-  h2 { font-size: 1.25rem; font-weight: 700; margin: 34px 0 10px; }
-  h3 { font-size: 1.02rem; font-weight: 700; margin: 22px 0 8px; color:#2a2a2a; }
-  p, li { font-size: 1rem; color: #262626; margin-bottom: 12px; }
-  ul { padding-left: 22px; margin-bottom: 12px; }
-  li { margin-bottom: 8px; }
-  strong { font-weight: 700; }
-  a { color: var(--tangerine); text-decoration: underline; }
-  blockquote {
-    border-left: 3px solid var(--tangerine); padding: 6px 0 6px 16px;
-    margin: 16px 0; color: var(--soft);
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink); opacity: 0.75;
   }
-  hr { border: none; border-top: 1px solid var(--hair); margin: 30px 0; }
-  .foot {
-    border-top: 1px solid var(--hair); margin-top: 50px; padding-top: 22px;
-    color: var(--soft); font-size: 0.88rem;
+  h1 {
+    font-weight: 800; letter-spacing: -0.035em; line-height: 0.92;
+    text-transform: lowercase; color: var(--paper);
+    font-size: clamp(2.4rem, 8vw, 4.6rem);
+    margin: 0.6rem 0 0.5rem;
   }
-  .foot a { color: var(--soft); }
+  .eff { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em;
+         text-transform: uppercase; color: var(--ink); opacity: 0.75; }
+  /* The document itself sits on paper: a wall of legal text on tangerine is
+     unreadable, and the contrast is the point of the sheet. */
+  .sheet {
+    margin: 2.4rem 0 0; background: var(--paper); color: var(--ink);
+    border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink);
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+  .sheet h2 {
+    font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em;
+    text-transform: lowercase; margin: 2.2rem 0 0.6rem;
+  }
+  .sheet h2:first-child { margin-top: 0; }
+  .sheet h3 { font-size: 1.02rem; font-weight: 700; margin: 1.4rem 0 0.4rem; }
+  .sheet p, .sheet li { margin-bottom: 0.8rem; }
+  .sheet ul, .sheet ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+  .sheet li { margin-bottom: 0.45rem; }
+  .sheet strong { font-weight: 700; }
+  .sheet a { color: var(--ink); text-decoration: underline;
+              text-decoration-thickness: 2px; text-underline-offset: 2px; }
+  .sheet blockquote {
+    border-left: 3px solid var(--tang); padding: 0.4rem 0 0.4rem 1rem;
+    margin: 1rem 0; opacity: 0.85;
+  }
+  .sheet hr { border: none; border-top: 2px solid var(--ink); opacity: 0.12; margin: 2rem 0; }
+  .foot { padding: 3rem 0 4rem; color: var(--paper); }
+  .foot__big {
+    font-weight: 800; text-transform: lowercase; letter-spacing: -0.035em;
+    line-height: 0.9; font-size: clamp(1.8rem, 5vw, 3rem); margin-bottom: 1.2rem;
+  }
+  .colophon {
+    display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem;
+    font-family: var(--mono); font-size: 0.74rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .colophon a { color: var(--paper); }
 </style>
 </head>
 <body>
-  <div class="top"><a class="wordmark" href="/whim/">whim<span class="dot">.</span></a></div>
-  <main class="container">
-    <h1>Privacy Policy</h1>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="top">
+    <a href="/whim/">&larr; Whim</a>
+    <a href="/">Elsewhere Index</a>
+  </header>
+  <main class="wrap">
+    <p class="eyebrow">Whim</p>
+    <h1>privacy policy</h1>
     <p class="eff">Effective June 16, 2026</p>
-    <p>This Privacy Policy explains how Elsewhere Index LLC (“Elsewhere
+    <article class="sheet">
+      <p>This Privacy Policy explains how Elsewhere Index LLC (“Elsewhere
 Index,” “we,” “us”) handles information in connection with the Whim
 mobile app, published in some regions as ¡Whim!, ¡Antojo! (es-MX), and
 ¡Lubie! (fr-FR) (the “App”). It is written to be readable. Where we have
@@ -394,11 +452,16 @@ policy.</p>
 <p><strong>Elsewhere Index LLC</strong> <a href="mailto:contact@elsewhereindex.com">contact@elsewhereindex.com</a></p>
 <hr />
 
-    <div class="foot">
-      Whim is an <a href="/">Elsewhere Index</a> app.
-      Questions: <a href="mailto:contact@elsewhereindex.com">contact@elsewhereindex.com</a> ·
-      <a href="https://elsewhereindex.com/whim/terms">Terms</a> · <a href="https://elsewhereindex.com/whim/privacy">Privacy</a>
-    </div>
+    </article>
   </main>
+  <footer class="wrap foot">
+    <p class="foot__big">questions?</p>
+    <div class="colophon">
+      <span><a href="mailto:contact@elsewhereindex.com">contact@elsewhereindex.com</a></span>
+      <span><a href="https://elsewhereindex.com/whim/terms">Terms</a></span>
+      <span><a href="https://elsewhereindex.com/whim/privacy">Privacy</a></span>
+      <span><a href="/whim/">Whim</a></span>
+    </div>
+  </footer>
 </body>
 </html>
