@@ -145,7 +145,7 @@ main {
 .index-quote .attribution {
   font-style: normal;
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.70rem;
   letter-spacing: 0.06em;
   color: var(--text-tertiary);
   display: block;
@@ -194,7 +194,7 @@ main {
 
 .page-subtitle {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.70rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-tertiary);
@@ -273,7 +273,7 @@ main {
 
 .site-footer p {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.70rem;
   letter-spacing: 0.06em;
   color: var(--text-tertiary);
 }
