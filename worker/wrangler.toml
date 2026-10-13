@@ -1,0 +1,12 @@
+# Contact-form sender for elsewhereindex.com. Not part of the Pages site:
+# _config.yml excludes this folder. Deploy only with Earl's ALL CAPS approval.
+name = "elsewhereindex-contact"
+main = "index.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+routes = [{ pattern = "elsewhereindex.com/api/contact", zone_name = "elsewhereindex.com" }]
+
+# Secrets (wrangler secret put): RESEND_API_KEY, TURNSTILE_SECRET
+[vars]
+TO = "earl@elsewhereindex.com"
+FROM = "Elsewhere Index <noreply@early.elsewhereindex.com>"
