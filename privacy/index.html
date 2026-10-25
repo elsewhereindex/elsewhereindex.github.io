@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy policy · Elsewhere Index</title>
+<link rel="canonical" href="https://elsewhereindex.com/privacy/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Privacy policy for Elsewhere Index LLC and its company tools, including how we use the Pinterest API.">
+<meta property="og:title" content="Privacy policy · Elsewhere Index">
+<meta property="og:description" content="Privacy policy for Elsewhere Index LLC and its company tools.">
+<meta property="og:type" content="website">
+<link rel="preload" href="/assets/fonts/roboto-flex-latin-3b7182.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-d77319.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  :root {
+    --paper: #F0ECE2;
+    --paper-2: #E9E4D8;
+    --ink: #17140F;
+    --accent: #1A22DB;
+    --quiet: #6B665C;
+    --line: rgba(23, 20, 15, 0.14);
+    --flex: "Roboto Flex", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--flex);
+    font-variation-settings: 'wght' 400, 'wdth' 100, 'opsz' 14;
+    font-size: 1.0625rem; line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; height: auto; }
+  ::selection { background: var(--accent); color: var(--paper); }
+
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+
+  .top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 1.6rem 0 3.5rem;
+    font-family: var(--mono); font-size: 0.70rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--quiet);
+  }
+  .top a:hover { color: var(--ink); }
+
+  .kicker {
+    font-family: var(--mono); font-size: 0.70rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--quiet); margin-bottom: 1.2rem;
+  }
+
+  .bio { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  .bio__portrait { width: 100%; filter: grayscale(1) contrast(1.04); }
+
+  h1 {
+    font-variation-settings: 'wght' 560, 'wdth' 92, 'opsz' 40;
+    font-size: clamp(1.9rem, 4.4vw, 3rem); line-height: 1.06;
+    letter-spacing: -0.015em; margin-bottom: 1.6rem;
+  }
+  .prose { max-width: 42ch; font-size: 1.08rem; line-height: 1.62; }
+  .prose + .prose { margin-top: 1.1rem; }
+  .prose a { border-bottom: 1px solid var(--line); }
+  .prose a:hover { border-color: var(--ink); }
+
+  .meta {
+    margin-top: 2.6rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--quiet);
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem;
+  }
+  .meta a { border-bottom: 1px solid var(--line); }
+  .meta a:hover { color: var(--ink); border-color: var(--ink); }
+
+  .foot {
+    margin-top: 5rem; padding: 1.6rem 0 3rem; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.70rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--quiet);
+    display: flex; flex-wrap: wrap; gap: 0.6rem 2rem;
+  }
+
+  @media (max-width: 720px) {
+    .bio { grid-template-columns: 1fr; }
+    .bio__portrait { max-width: 13rem; }
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 560, 'wdth' 96, 'opsz' 24;
+    font-size: 1.3rem; line-height: 1.2; margin: 2.4rem 0 0.8rem;
+  }
+  .doc { max-width: 40rem; }
+  .doc p, .doc li { font-size: 1.04rem; line-height: 1.62; }
+  .doc p + p { margin-top: 1rem; }
+  .doc ul { margin: 0.8rem 0 0 1.2rem; }
+  .doc li + li { margin-top: 0.4rem; }
+  .doc a { border-bottom: 1px solid var(--line); }
+  .doc a:hover { border-color: var(--ink); }
+  .updated { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--quiet); margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav class="top">
+    <a href="/">&larr; Elsewhere Index</a>
+    <span>Privacy</span>
+  </nav>
+
+  <p class="kicker">Privacy policy</p>
+
+  <div class="doc">
+    <h1>Privacy policy</h1>
+    <p class="updated">Last updated October 25, 2026</p>
+
+    <p>Elsewhere Index LLC is a small software studio in Dallas. We make consumer apps, including Dear and Whim. Each app has its own privacy policy for the people who use it: <a href="https://dearnudges.com/privacy.html">Dear</a> and <a href="/whim/privacy/">Whim</a>. This page covers the company itself and the tools we use to run it, including how we use Pinterest.</p>
+
+    <h2>Our Pinterest publishing tool</h2>
+    <p>We run a publishing tool, Elsewhere Index Publisher, that connects to our own Pinterest business accounts for Dear and Whim. It connects through Pinterest's standard OAuth sign-in. We never ask for or store a Pinterest password. With the access Pinterest grants, the tool:</p>
+    <ul>
+      <li>creates Pins and boards on our own accounts, using images, titles, descriptions and links that we made and approved;</li>
+      <li>reads basic information about our own accounts, boards and Pins;</li>
+      <li>reads the totals Pinterest reports for our own Pins, such as impressions, saves and clicks, so we can see which Pins are useful.</li>
+    </ul>
+    <p>The tool does not connect anyone else's Pinterest account. It does not scrape Pinterest, and it does not collect information about the people who see, save or click our Pins beyond the aggregate totals Pinterest reports to us.</p>
+
+    <h2>How we store it</h2>
+    <p>The access token is stored in the encrypted keychain of a company computer and is used only to post and read our own Pins. We do not share, sell or rent any data we get from Pinterest. Pin totals are kept as simple daily counts. If we stop using the tool, we delete the token and revoke its access.</p>
+
+    <h2>Other company information</h2>
+    <p>If you email us or use the contact form on this site, we keep your message and address to reply to you and do not use them for anything else. This website does not use advertising trackers.</p>
+
+    <h2>Your choices</h2>
+    <p>You can ask us what we hold about you, or ask us to delete it, at any time. We will reply within 30 days.</p>
+
+    <h2>Contact</h2>
+    <p>Elsewhere Index LLC, Dallas, Texas<br><a href="mailto:contact@elsewhereindex.com">contact@elsewhereindex.com</a></p>
+  </div>
+
+  <footer class="foot">
+    <span>Elsewhere Index LLC</span>
+    <span>Dallas</span>
+    <span>&copy; 2026</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
